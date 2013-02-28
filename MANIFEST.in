@@ -5,5 +5,5 @@ include CHANGELOG.txt
 include README.md
 graft multilingual_events 
 global-exclude *.orig *.pyc *.log
-prune multilingual_events/tests/coverage/
-prune tagging_translated/.ropeproject/
+prune multilingual_events/tests/coverage
+prune multilingual_events/.ropeproject
