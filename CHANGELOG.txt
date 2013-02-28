@@ -1,5 +1,7 @@
 === ongoing ===
 
+=== 0.1.2 ===
+
 - Fixed more wrong names :(
 
 === 0.1.1 ===
