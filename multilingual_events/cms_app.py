@@ -6,8 +6,8 @@ from cms.apphook_pool import apphook_pool
 
 
 class SimpleEventsApphook(CMSApp):
-    name = _("Simple Events Apphook")
-    urls = ["simple_events.urls"]
+    name = _("Multilingual Events Apphook")
+    urls = ["multilingual_events.urls"]
 
 
 apphook_pool.register(SimpleEventsApphook)
