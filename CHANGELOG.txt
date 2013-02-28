@@ -1,5 +1,7 @@
 === ongoing ===
 
+- Added lat lng fields to event.
+
 === 0.1.2 ===
 
 - Fixed more wrong names :(

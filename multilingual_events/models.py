@@ -126,6 +126,16 @@ class Event(models.Model):
         blank=True,
     )
 
+    lat = models.FloatField(
+        verbose_name=_('Latitude'),
+        null=True, blank=True,
+    )
+
+    lng = models.FloatField(
+        verbose_name=_('Longitude'),
+        null=True, blank=True,
+    )
+
     is_published = models.BooleanField(
         default=False,
         verbose_name=_('Is published'),
