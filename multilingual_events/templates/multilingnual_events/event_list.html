@@ -15,7 +15,7 @@
 
 <h2>{% trans "Archived" %}</h2>
 {% for event in archived_events %}
-    {% include "simple_events/partials/event_item.html" %}
+    {% include "multilingual_events/partials/event_item.html" %}
 {% empty %}
 	<p>{% trans "No archived events found." %}</p>
 {% endfor %}

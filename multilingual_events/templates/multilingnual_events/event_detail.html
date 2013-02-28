@@ -4,7 +4,7 @@
 
 {% block main %}
 {% with event|get_preferred_translation_from_request:request as event_title %}
-    <a href="{% url "simple_events_list" %}">{% trans "Back to Events" %}</a>
+    <a href="{% url "multilingual_events_list" %}">{% trans "Back to Events" %}</a>
     <h1>{{ event_title.title }}</h1>
     <p>{{ event_title.description }}<p>
             

@@ -263,7 +263,7 @@ class EventTitle(models.Model):
         language_namespace = middleware in settings.MIDDLEWARE_CLASSES \
             and '%s:' % self.language or ''
         return reverse(
-            '%ssimple_events_detail' % language_namespace,
+            '%smultilingual_events_detail' % language_namespace,
             args=(),
             kwargs={'pk': self.event.pk, }
         )

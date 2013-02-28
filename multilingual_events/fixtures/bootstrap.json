@@ -1,7 +1,7 @@
 [
     {
         "pk": 2, 
-        "model": "simple_events.eventcategory", 
+        "model": "multilingual_events.eventcategory", 
         "fields": {
             "position": null, 
             "slug": "conferences"
@@ -9,7 +9,7 @@
     }, 
     {
         "pk": 1, 
-        "model": "simple_events.eventcategory", 
+        "model": "multilingual_events.eventcategory", 
         "fields": {
             "position": null, 
             "slug": "workshops"
@@ -17,7 +17,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "simple_events.eventcategorytitle", 
+        "model": "multilingual_events.eventcategorytitle", 
         "fields": {
             "category": 1, 
             "language": "zh", 
@@ -26,7 +26,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "simple_events.eventcategorytitle", 
+        "model": "multilingual_events.eventcategorytitle", 
         "fields": {
             "category": 2, 
             "language": "zh", 
@@ -35,7 +35,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "simple_events.eventcategorytitle", 
+        "model": "multilingual_events.eventcategorytitle", 
         "fields": {
             "category": 2, 
             "language": "en", 
@@ -44,7 +44,7 @@
     }, 
     {
         "pk": 1, 
-        "model": "simple_events.eventcategorytitle", 
+        "model": "multilingual_events.eventcategorytitle", 
         "fields": {
             "category": 1, 
             "language": "en", 
@@ -53,7 +53,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "simple_events.event", 
+        "model": "multilingual_events.event", 
         "fields": {
             "category": 1, 
             "creation_date": "2013-01-31T07:43:03.241", 
@@ -67,7 +67,7 @@
     }, 
     {
         "pk": 1, 
-        "model": "simple_events.event", 
+        "model": "multilingual_events.event", 
         "fields": {
             "category": 2, 
             "creation_date": "2013-01-31T07:41:43.003", 
@@ -81,7 +81,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "simple_events.event", 
+        "model": "multilingual_events.event", 
         "fields": {
             "category": 1, 
             "creation_date": "2013-01-31T07:42:25.129", 
@@ -95,7 +95,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "simple_events.eventtitle", 
+        "model": "multilingual_events.eventtitle", 
         "fields": {
             "event": 1, 
             "description": "\u66b2 \u8567\u879b \u99d3\u99d7\u9d00 \u6c80\u76af\u7afb, \u8e38\u8ebd \u6f0a \u8f52\u91ad\u93f9 \u70e2\u70d2\u73db \u849d\u84a7\u84cf \u92c8 \u6a40\u69f6\u6f89 \u8dd0\u9260\u9263 \u8e8e\u8f5b, \u8cb5\u8d80\u8dc5 \u984a\u9843\u992d \u8699\u8ffb \u9299, \u9924\u99f0\u9b33 \u5b0f\u5d9f\u6a00 \u70d7\u7300\u73d6", 
@@ -105,7 +105,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "simple_events.eventtitle", 
+        "model": "multilingual_events.eventtitle", 
         "fields": {
             "event": 2, 
             "description": "\u66b2 \u8567\u879b \u99d3\u99d7\u9d00 \u6c80\u76af\u7afb, \u8e38\u8ebd \u6f0a \u8f52\u91ad\u93f9 \u70e2\u70d2\u73db \u849d\u84a7\u84cf \u92c8 \u6a40\u69f6\u6f89 \u8dd0\u9260\u9263 \u8e8e\u8f5b, \u8cb5\u8d80\u8dc5 \u984a\u9843\u992d \u8699\u8ffb \u9299, \u9924\u99f0\u9b33 \u5b0f\u5d9f\u6a00 \u70d7\u7300\u73d6", 
@@ -115,7 +115,7 @@
     }, 
     {
         "pk": 5, 
-        "model": "simple_events.eventtitle", 
+        "model": "multilingual_events.eventtitle", 
         "fields": {
             "event": 3, 
             "description": "", 
@@ -125,7 +125,7 @@
     }, 
     {
         "pk": 1, 
-        "model": "simple_events.eventtitle", 
+        "model": "multilingual_events.eventtitle", 
         "fields": {
             "event": 1, 
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.", 
@@ -135,7 +135,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "simple_events.eventtitle", 
+        "model": "multilingual_events.eventtitle", 
         "fields": {
             "event": 2, 
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.", 
@@ -145,7 +145,7 @@
     }, 
     {
         "pk": 17, 
-        "model": "simple_events.eventagendaday", 
+        "model": "multilingual_events.eventagendaday", 
         "fields": {
             "date": "2013-02-08", 
             "title": "Opening day"
@@ -153,7 +153,7 @@
     }, 
     {
         "pk": 18, 
-        "model": "simple_events.eventagendasession", 
+        "model": "multilingual_events.eventagendasession", 
         "fields": {
             "start_time": "2013-02-08T16:20:06", 
             "description": "Session chair: Martin\r\nSession co-chair: Tobias", 
@@ -164,7 +164,7 @@
     }, 
     {
         "pk": 19, 
-        "model": "simple_events.eventagendatalk", 
+        "model": "multilingual_events.eventagendatalk", 
         "fields": {
             "document": 1, 
             "description": "To be announced", 

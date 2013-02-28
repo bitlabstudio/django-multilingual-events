@@ -1,4 +1,4 @@
-"""Templatetags for the ``simple_events`` app."""
+"""Templatetags for the ``multilingual_events`` app."""
 from django import template
 
 from simple_translation.middleware import filter_queryset_language
