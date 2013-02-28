@@ -1,5 +1,9 @@
 === ongoing ===
 
+- Fixed wrong path to urls.py in cms_app.py
+- Fixed wrong import in views.py
+- Renamed view names.
+
 === 0.1 ===
 
 Initial commit
