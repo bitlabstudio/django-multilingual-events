@@ -1,0 +1,174 @@
+[
+    {
+        "pk": 2, 
+        "model": "simple_events.eventcategory", 
+        "fields": {
+            "position": null, 
+            "slug": "conferences"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "simple_events.eventcategory", 
+        "fields": {
+            "position": null, 
+            "slug": "workshops"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "simple_events.eventcategorytitle", 
+        "fields": {
+            "category": 1, 
+            "language": "zh", 
+            "title": "\u7814\u8ba8\u4f1a"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "simple_events.eventcategorytitle", 
+        "fields": {
+            "category": 2, 
+            "language": "zh", 
+            "title": "\u4f1a\u8bae"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "simple_events.eventcategorytitle", 
+        "fields": {
+            "category": 2, 
+            "language": "en", 
+            "title": "Conferences"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "simple_events.eventcategorytitle", 
+        "fields": {
+            "category": 1, 
+            "language": "en", 
+            "title": "Workshops"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "simple_events.event", 
+        "fields": {
+            "category": 1, 
+            "creation_date": "2013-01-31T07:43:03.241", 
+            "user": null, 
+            "placeholders": [
+                19
+            ], 
+            "start_date": "2013-09-01T00:00:00", 
+            "is_published": false
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "simple_events.event", 
+        "fields": {
+            "category": 2, 
+            "creation_date": "2013-01-31T07:41:43.003", 
+            "user": null, 
+            "placeholders": [
+                20
+            ], 
+            "start_date": "2013-07-01T00:00:00", 
+            "is_published": true
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "simple_events.event", 
+        "fields": {
+            "category": 1, 
+            "creation_date": "2013-01-31T07:42:25.129", 
+            "user": null, 
+            "placeholders": [
+                16
+            ], 
+            "start_date": "2013-08-01T00:00:00", 
+            "is_published": true
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "simple_events.eventtitle", 
+        "fields": {
+            "event": 1, 
+            "description": "\u66b2 \u8567\u879b \u99d3\u99d7\u9d00 \u6c80\u76af\u7afb, \u8e38\u8ebd \u6f0a \u8f52\u91ad\u93f9 \u70e2\u70d2\u73db \u849d\u84a7\u84cf \u92c8 \u6a40\u69f6\u6f89 \u8dd0\u9260\u9263 \u8e8e\u8f5b, \u8cb5\u8d80\u8dc5 \u984a\u9843\u992d \u8699\u8ffb \u9299, \u9924\u99f0\u9b33 \u5b0f\u5d9f\u6a00 \u70d7\u7300\u73d6", 
+            "language": "zh", 
+            "title": "\u4e00\u4e2a\u4ee4\u4eba\u5174\u594b\u7684\u4e8b\u4ef6"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "simple_events.eventtitle", 
+        "fields": {
+            "event": 2, 
+            "description": "\u66b2 \u8567\u879b \u99d3\u99d7\u9d00 \u6c80\u76af\u7afb, \u8e38\u8ebd \u6f0a \u8f52\u91ad\u93f9 \u70e2\u70d2\u73db \u849d\u84a7\u84cf \u92c8 \u6a40\u69f6\u6f89 \u8dd0\u9260\u9263 \u8e8e\u8f5b, \u8cb5\u8d80\u8dc5 \u984a\u9843\u992d \u8699\u8ffb \u9299, \u9924\u99f0\u9b33 \u5b0f\u5d9f\u6a00 \u70d7\u7300\u73d6", 
+            "language": "zh", 
+            "title": "\u4e00\u4ef6\u559c\u4e8b"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "simple_events.eventtitle", 
+        "fields": {
+            "event": 3, 
+            "description": "", 
+            "language": "en", 
+            "title": "An unpublished event"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "simple_events.eventtitle", 
+        "fields": {
+            "event": 1, 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.", 
+            "language": "en", 
+            "title": "An exciting event"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "simple_events.eventtitle", 
+        "fields": {
+            "event": 2, 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.", 
+            "language": "en", 
+            "title": "A happy event"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "simple_events.eventagendaday", 
+        "fields": {
+            "date": "2013-02-08", 
+            "title": "Opening day"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "simple_events.eventagendasession", 
+        "fields": {
+            "start_time": "2013-02-08T16:20:06", 
+            "description": "Session chair: Martin\r\nSession co-chair: Tobias", 
+            "end_time": "2013-02-08T17:20:08", 
+            "document": 2, 
+            "title": "Our first session"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "simple_events.eventagendatalk", 
+        "fields": {
+            "document": 1, 
+            "description": "To be announced", 
+            "title": "Keynote"
+        }
+    }
+]

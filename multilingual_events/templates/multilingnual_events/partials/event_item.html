@@ -1,0 +1,15 @@
+{% load i18n simple_translation_tags multilingual_events_tags %}
+{% load url from future %}
+
+{% with event|get_preferred_translation_from_request:request as event_title %}
+<p>{{ event.category.slug }}</p>
+<p>
+    <span>{{ event.start_date|date:"F d, Y" }}</span> /
+    <span>{{ event.category.get_translation.title }}</span>
+</p>
+
+<h3><a href="{{ event_title.get_absolute_url }}">{{ event_title.title }}</a></h3>
+<p>{{ event_title.description }}</p>
+<p><a href="{{ event_title.get_absolute_url }}">{% trans "Read more …"%}</a></p>
+<hr>
+{% endwith %}

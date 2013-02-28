@@ -1,0 +1,9 @@
+<div>
+    <h5>{{ object.start_time|date:"h:i" }} – {{ object.end_time|date:"h:i" }}: {{ object.title }}</h5>
+    <p>
+        {{ object.description|safe|linebreaks }}
+    </p>
+    {% for document in object.document.documenttitle_set.all %}
+        <p><a href="{{ document.filer_file.url }}">{{ document.title }} [{{ document.document.get_filetype }}]</a></p>
+    {% endfor %}
+</div>

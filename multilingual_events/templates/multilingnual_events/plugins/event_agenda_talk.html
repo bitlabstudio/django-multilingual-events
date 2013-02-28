@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<hr>
+
+<h5>{{ object.title }}</h5>
+<p>{{ object.description|safe|linebreaks }}</p>
+
+{% if object.document.documenttitle_set.all %}
+    <ul class="dropdown-menu">
+        {% for document in object.document.documenttitle_set.all %}
+            <li><a href="{{ document.filer_file.url }}">{{ document.title }} [{{ document.document.get_filetype }}]</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
