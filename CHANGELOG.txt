@@ -1,5 +1,7 @@
 === ongoing ===
 
+- removed maps embed code field
+
 === 0.3.1 ===
 
 - added help text to lat / lng fields

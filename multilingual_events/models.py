@@ -21,7 +21,6 @@ lat_lng_help_text = _(
     ' target="_blank">this website</a>')
 
 
-
 class EventCategory(SimpleTranslationMixin, models.Model):
     """
     Events are grouped in categories.
@@ -134,12 +133,6 @@ class Event(SimpleTranslationMixin, models.Model):
 
     venue_url = models.URLField(
         verbose_name=_('Venue URL'),
-        blank=True,
-    )
-
-    google_maps_embed_code = models.CharField(
-        max_length=4000,
-        verbose_name=_('Google Maps embed code'),
         blank=True,
     )
 
