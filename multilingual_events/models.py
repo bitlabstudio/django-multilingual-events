@@ -15,6 +15,13 @@ from simple_translation.actions import SimpleTranslationPlaceholderActions
 from simple_translation.utils import get_preferred_translation_from_lang
 
 
+lat_lng_help_text = _(
+    'You can figure out latitude and longitude at'
+    ' <a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm"'
+    ' target="_blank">this website</a>')
+
+
+
 class EventCategory(SimpleTranslationMixin, models.Model):
     """
     Events are grouped in categories.
@@ -138,11 +145,13 @@ class Event(SimpleTranslationMixin, models.Model):
 
     lat = models.FloatField(
         verbose_name=_('Latitude'),
+        help_text=lat_lng_help_text,
         null=True, blank=True,
     )
 
     lng = models.FloatField(
         verbose_name=_('Longitude'),
+        help_text=lat_lng_help_text,
         null=True, blank=True,
     )
 
