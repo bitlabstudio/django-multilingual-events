@@ -1,5 +1,7 @@
 === ongoing ===
 
+=== 0.4 ===
+
 - removed maps embed code field
 
 === 0.3.1 ===
