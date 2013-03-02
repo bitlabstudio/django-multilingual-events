@@ -23,10 +23,11 @@ class EventListView(TemplateView):
         qs = Event.objects.filter(is_published=True)
         qs = qs.filter(start_date__lt=yesterday)
         archived = filter_queryset_language(self.request, qs)
-        return {
+        ctx.update({
             'upcoming_events': upcoming,
             'archived_events': archived,
-        }
+        })
+        return ctx
 
 
 class EventDetailView(DetailView):
