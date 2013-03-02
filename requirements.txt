@@ -4,6 +4,7 @@
 # Packages essential to this app. Needed by anyone who wants to use this app.
 # ===========================================================================
 django==1.4.3
+django-libs==0.17
 django-cms==2.3.5
 # There is a problem with STATIC_FILES in the latest commit (as of 2012-02)
 -e git+git://github.com/fivethreeo/cmsplugin-blog.git@cd91a4eb066437aa254574759eed51da973314ab#egg=cmsplugin_blog
@@ -15,7 +16,6 @@ South==0.7.6
 # Packages needed for running the tests. Needed by contributors.
 # ==============================================================
 Fabric
-django-libs
 factory-boy
 mock
 django-nose

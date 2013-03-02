@@ -2,17 +2,20 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import Q
+from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
 from django_countries import CountryField
+from django_libs.models_mixins import SimpleTranslationMixin
 from djangocms_utils.fields import M2MPlaceholderField
 from simple_translation.actions import SimpleTranslationPlaceholderActions
 from simple_translation.utils import get_preferred_translation_from_lang
 
 
-class EventCategory(models.Model):
+class EventCategory(SimpleTranslationMixin, models.Model):
     """
     Events are grouped in categories.
 
@@ -34,10 +37,6 @@ class EventCategory(models.Model):
     def __unicode__(self):
         return self.get_translation().title
 
-    def get_translation(self):
-        lang = get_language()
-        return get_preferred_translation_from_lang(self, lang)
-
 
 class EventCategoryTitle(models.Model):
     """
@@ -54,7 +53,18 @@ class EventCategoryTitle(models.Model):
     language = models.CharField(max_length=2, verbose_name=_('Language'))
 
 
-class Event(models.Model):
+class EventManager(models.Manager):
+    """Custom manager for the ``Event`` model."""
+    def get_visible(self):
+        qs = self.get_query_set()
+        qs = qs.filter(is_published=True)
+        qs = qs.filter(
+            Q(start_date__gte=timezone.now()) |
+            Q(end_date__gte=timezone.now()))
+        return qs
+
+
+class Event(SimpleTranslationMixin, models.Model):
     """
     An event is something that happens on a specific start date.
 
@@ -161,6 +171,8 @@ class Event(models.Model):
         null=True, blank=True,
     )
 
+    objects = EventManager()
+
     class Meta:
         ordering = ('start_date', )
 
@@ -206,10 +218,6 @@ class Event(models.Model):
     def get_title(self):
         lang = get_language()
         return get_preferred_translation_from_lang(self, lang).title
-
-    def get_translation(self):
-        lang = get_language()
-        return get_preferred_translation_from_lang(self, lang)
 
 
 class EventTitle(models.Model):

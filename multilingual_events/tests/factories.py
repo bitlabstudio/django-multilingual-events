@@ -2,19 +2,24 @@
 from django.utils.timezone import now
 
 import factory
+from django_libs.tests.factories import SimpleTranslationMixin
 
 from ..models import Event, EventCategory, EventCategoryTitle, EventTitle
 
 
-class EventCategoryFactory(factory.Factory):
+class EventCategoryFactory(SimpleTranslationMixin, factory.Factory):
     """Factory for the ``EventCategory`` model."""
     FACTORY_FOR = EventCategory
 
     slug = factory.Sequence(lambda n: 'category-{0}'.format(n))
 
+    @staticmethod
+    def _get_translation_factory_and_field():
+        return (EventCategoryTitleFactory, 'category')
 
-class EventCategoryTitleENFactory(factory.Factory):
-    """Factory for the ``EventCategoryTitle`` model. Language is English."""
+
+class EventCategoryTitleFactory(factory.Factory):
+    """Factory for the ``EventCategoryTitle`` model."""
     FACTORY_FOR = EventCategoryTitle
 
     title = 'Category title'
@@ -22,38 +27,24 @@ class EventCategoryTitleENFactory(factory.Factory):
     language = 'en'
 
 
-class EventCategoryTitleDEFactory(factory.Factory):
-    """Factory for the ``EventCategoryTitle`` model. Language is German."""
-    FACTORY_FOR = EventCategoryTitle
-
-    title = 'Kategorie Titel'
-    category = factory.SubFactory(EventCategoryFactory)
-    language = 'de'
-
-
-class EventFactory(factory.Factory):
+class EventFactory(SimpleTranslationMixin, factory.Factory):
     """Factory for the ``Event`` model."""
     FACTORY_FOR = Event
 
+    category = factory.SubFactory(EventCategoryFactory)
     start_date = factory.LazyAttribute(lambda x: now())
     is_published = True
 
+    @staticmethod
+    def _get_translation_factory_and_field():
+        return (EventTitleFactory, 'event')
 
-class EventTitleENFactory(factory.Factory):
-    """Factory for the ``EventTitle`` model. Language is English."""
+
+class EventTitleFactory(factory.Factory):
+    """Factory for the ``EventTitle`` model."""
     FACTORY_FOR = EventTitle
 
     title = 'A title'
     description = 'A description'
     event = factory.SubFactory(EventFactory)
     language = 'en'
-
-
-class EventTitleDEFactory(factory.Factory):
-    """Factory for the ``EventTitle`` model. Language is German."""
-    FACTORY_FOR = EventTitle
-
-    title = 'Ein Titel'
-    description = 'Eine Beschreibung'
-    event = factory.SubFactory(EventFactory)
-    language = 'de'

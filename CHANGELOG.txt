@@ -1,5 +1,9 @@
 === ongoing ===
 
+- Added EventManager with `get_visible` method. Shows published, upcoming and 
+  still running events.
+- Refactored factories, so that tests are easier to write and read.
+
 === 0.2 ===
 
 - Added lat lng fields to event.

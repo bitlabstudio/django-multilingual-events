@@ -1,7 +1,7 @@
 """Tests for the views of the ``multilingual_events`` app."""
 from django.test import TestCase, RequestFactory
 
-from ..factories import EventCategoryTitleENFactory, EventTitleENFactory
+from ..factories import EventFactory
 from ...views import EventDetailView, EventListView
 
 
@@ -15,12 +15,8 @@ class EventListViewTestCase(TestCase):
 
 class EventDetailViewTestCase(TestCase):
     """Tests for the ``EventDetailView`` view class."""
-    def setUp(self):
-        super(EventDetailViewTestCase, self).setUp()
-        self.cat_en = EventCategoryTitleENFactory()
-        self.event = EventTitleENFactory(event__category=self.cat_en.category)
-
     def test_view(self):
+        event = EventFactory()
         req = RequestFactory().get('/')
-        resp = EventDetailView.as_view()(req, pk=self.event.event.pk)
+        resp = EventDetailView.as_view()(req, pk=event.pk)
         self.assertEqual(resp.status_code, 200)

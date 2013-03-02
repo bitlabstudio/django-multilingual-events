@@ -1,11 +1,37 @@
 """Tests for the models of the ``multilingual_events`` app."""
 from django.test import TestCase
+from django.utils import timezone
 
-from .factories import (
-    EventCategoryTitleENFactory,
-    EventFactory,
-    EventTitleENFactory,
-)
+from ..models import Event
+from .factories import EventFactory, EventTitleFactory
+
+
+class EventManagerTestCase(TestCase):
+    """Tests for the ``EventManager`` class."""
+    longMessage = True
+
+    def test_get_visible(self):
+        manager = Event.objects
+
+        # the following two events should be visible
+        # a visible event
+        EventFactory()
+
+        # a past event with future end date
+        past = timezone.now() - timezone.timedelta(1)
+        future = timezone.now() + timezone.timedelta(1)
+        EventFactory(start_date=past, end_date=future)
+
+        # the following two events should be invisible
+        # an invisible event
+        EventFactory(is_published=False)
+
+        # a past event
+        past = timezone.now() - timezone.timedelta(1)
+        EventFactory(start_date=past)
+
+        result = manager.get_visible()
+        self.assertEqual(result.count(), 2)
 
 
 class EventTestCase(TestCase):
@@ -13,8 +39,7 @@ class EventTestCase(TestCase):
     longMessage = True
 
     def test_model(self):
-        cat_en = EventCategoryTitleENFactory()
-        instance = EventFactory(category=cat_en.category)
+        instance = EventFactory()
         self.assertTrue(instance.pk, msg=(
             'Should be able to instantiate and save the model.'))
 
@@ -24,7 +49,6 @@ class EventTitleTestCase(TestCase):
     longMessage = True
 
     def test_model(self):
-        cat_en = EventCategoryTitleENFactory()
-        instance = EventTitleENFactory(event__category=cat_en.category)
+        instance = EventTitleFactory()
         self.assertTrue(instance.pk, msg=(
             'Should be able to instantiate and save the model.'))
