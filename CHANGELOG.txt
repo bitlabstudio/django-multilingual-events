@@ -1,5 +1,8 @@
 === ongoing ===
 
+- Renamed placeholder form content to conference. This allows to reduce 
+  possible plugins via the cms setting.
+
 === 0.4 ===
 
 - removed maps embed code field

@@ -86,7 +86,7 @@ class Event(SimpleTranslationMixin, models.Model):
 
     placeholders = M2MPlaceholderField(
         actions=SimpleTranslationPlaceholderActions(),
-        placeholders=('content', ),
+        placeholders=('conference', ),
     )
 
     # Allow null for once but remove this later, when data is setup.
