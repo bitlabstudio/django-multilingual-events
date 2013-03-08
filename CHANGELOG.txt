@@ -1,5 +1,7 @@
 === ongoing ===
 
+=== 0.5 ===
+
 - Renamed placeholder form content to conference. This allows to reduce 
   possible plugins via the cms setting.
 
