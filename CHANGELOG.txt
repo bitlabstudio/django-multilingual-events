@@ -1,8 +1,11 @@
 === ongoing ===
 
+- added is_published to EventTitle to be able to publish several languages on
+  their own
+
 === 0.5 ===
 
-- Renamed placeholder form content to conference. This allows to reduce 
+- Renamed placeholder form content to conference. This allows to reduce
   possible plugins via the cms setting.
 
 === 0.4 ===
@@ -15,7 +18,7 @@
 
 === 0.3 ===
 
-- Added EventManager with `get_visible` method. Shows published, upcoming and 
+- Added EventManager with `get_visible` method. Shows published, upcoming and
   still running events.
 - Refactored factories, so that tests are easier to write and read.
 

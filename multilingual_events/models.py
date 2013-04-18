@@ -77,8 +77,6 @@ class Event(SimpleTranslationMixin, models.Model):
     For translateable fields see ``EventTitle``.
 
     :start_date: The DateTime when this event starts.
-    :is_published: If ``True``, the event would be returned by the
-      ``get_events`` templatetag.
     :creation_date: The DateTime when this event was created.
     :user: The user who created this event.
 
@@ -195,7 +193,7 @@ class Event(SimpleTranslationMixin, models.Model):
             if trans.postal_code:
                 full_address += u'{0} '.format(trans.postal_code)
             full_address += u'{0}<br />'.format(trans.city)
-        full_address += u'{0}'.format(self.country.name.encode())
+        full_address += u'{0}'.format(unicode(self.country.name))
         return full_address
 
     def get_alternative_events(self):
@@ -207,7 +205,7 @@ class Event(SimpleTranslationMixin, models.Model):
         result = u''
         if trans.city:
             result += u'{0}, '.format(trans.city)
-        result += self.country.name.encode()
+        result += unicode(self.country.name)
         return result
 
     def get_number_of_days(self):
@@ -225,6 +223,17 @@ class Event(SimpleTranslationMixin, models.Model):
 class EventTitle(models.Model):
     """
     Translateable fields of the ``Event`` model.
+
+    :title: Title off the event.
+    :venue_name: The venue, this event takes place.
+    :city: The city the event will be in.
+    :postal_code: The postal code of the city:
+    :address_1: The address of the event.
+    :address_2: An additional address of the event.
+    :room: The room this event will be in.
+    :description: A description of the event
+    :is_published: If ``True``, the event would be returned by the
+      ``get_events`` templatetag.
 
     """
     title = models.CharField(
@@ -271,6 +280,11 @@ class EventTitle(models.Model):
     description = models.TextField(
         verbose_name=_('Description'),
         blank=True,
+    )
+
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name=_('Is published'),
     )
 
     # Needed by simple_translation
