@@ -1,5 +1,8 @@
 === ongoing ===
 
+
+=== 0.6 ===
+
 - added is_published to EventTitle to be able to publish several languages on
   their own
 
