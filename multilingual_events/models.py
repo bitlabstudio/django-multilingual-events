@@ -61,12 +61,36 @@ class EventCategoryTitle(models.Model):
 
 class EventManager(models.Manager):
     """Custom manager for the ``Event`` model."""
-    def get_visible(self):
+    def get_archived(self, request):
+        language = getattr(request, 'LANGUAGE_CODE', None)
+
         qs = self.get_query_set()
-        qs = qs.filter(is_published=True)
+        qs = qs.filter(eventtitle__is_published=True).distinct()
         qs = qs.filter(
-            Q(start_date__gte=timezone.now()) |
-            Q(end_date__gte=timezone.now()))
+            Q(start_date__lt=timezone.now()) & (
+                Q(end_date__isnull=True) | Q(end_date__lt=timezone.now())))
+
+        if not language:
+            return qs
+        qs = qs.filter(
+            eventtitle__language=language,
+        )
+        return qs
+
+    def get_upcoming(self, request):
+        language = getattr(request, 'LANGUAGE_CODE', None)
+
+        qs = self.get_query_set()
+        qs = qs.filter(eventtitle__is_published=True).distinct()
+        qs = qs.filter(
+            Q(end_date__gte=timezone.now()) |
+            Q(start_date__gte=timezone.now()))
+
+        if not language:
+            return qs
+        qs = qs.filter(
+            eventtitle__language=language,
+        )
         return qs
 
 

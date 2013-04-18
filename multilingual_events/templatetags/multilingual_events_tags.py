@@ -1,8 +1,6 @@
 """Templatetags for the ``multilingual_events`` app."""
 from django import template
 
-from simple_translation.middleware import filter_queryset_language
-
 from ..models import EventCategory, Event
 
 
@@ -25,6 +23,5 @@ def get_events(context, amount=5):
 
     """
     request = context.get('request')
-    qs = Event.objects.get_visible()
-    qs = filter_queryset_language(request, qs)
+    qs = Event.objects.get_upcoming(request)
     return qs[:amount]

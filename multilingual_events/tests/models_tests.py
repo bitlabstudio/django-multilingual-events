@@ -1,4 +1,5 @@
 """Tests for the models of the ``multilingual_events`` app."""
+from mock import Mock
 from django.test import TestCase
 from django.utils import timezone
 
@@ -10,27 +11,39 @@ class EventManagerTestCase(TestCase):
     """Tests for the ``EventManager`` class."""
     longMessage = True
 
-    def test_get_visible(self):
-        manager = Event.objects
-
+    def setUp(self):
         # the following two events should be visible
         # a visible event
-        EventFactory()
+        EventTitleFactory()
 
         # a past event with future end date
         past = timezone.now() - timezone.timedelta(1)
         future = timezone.now() + timezone.timedelta(1)
-        EventFactory(start_date=past, end_date=future)
+        EventTitleFactory(event__start_date=past, event__end_date=future)
 
         # the following two events should be invisible
         # an invisible event
-        EventFactory(is_published=False)
+        EventTitleFactory(is_published=False)
 
         # a past event
         past = timezone.now() - timezone.timedelta(1)
-        EventFactory(start_date=past)
+        EventTitleFactory(event__start_date=past)
 
-        result = manager.get_visible()
+    def test_get_visible_and_get_archived(self):
+        manager = Event.objects
+
+        request = Mock(LANGUAGE_CODE='en')
+        result = manager.get_upcoming(request)
+        self.assertEqual(result.count(), 2)
+
+        result = manager.get_archived(request)
+        self.assertEqual(result.count(), 1)
+
+        # another past event
+        past = timezone.now() - timezone.timedelta(1)
+        EventTitleFactory(event__start_date=past)
+
+        result = manager.get_archived(request)
         self.assertEqual(result.count(), 2)
 
 

@@ -27,13 +27,16 @@ class EventCategoryTitleFactory(factory.Factory):
     language = 'en'
 
 
-class EventFactory(SimpleTranslationMixin, factory.Factory):
+class BaseEventFactory(factory.Factory):
     """Factory for the ``Event`` model."""
     FACTORY_FOR = Event
 
     category = factory.SubFactory(EventCategoryFactory)
     start_date = factory.LazyAttribute(lambda x: now())
-    is_published = True
+
+
+class EventFactory(SimpleTranslationMixin, BaseEventFactory):
+    FACTORY_FOR = Event
 
     @staticmethod
     def _get_translation_factory_and_field():
@@ -46,5 +49,8 @@ class EventTitleFactory(factory.Factory):
 
     title = 'A title'
     description = 'A description'
-    event = factory.SubFactory(EventFactory)
+    # we use only the BaseEventFactory here, because calling the EventFactory
+    # as SubFactory will result in duplicate EventTitle objects
+    event = factory.SubFactory(BaseEventFactory)
     language = 'en'
+    is_published = True

@@ -1,8 +1,5 @@
 """Views for the ``multilingual_events`` app."""
 from django.views.generic import DetailView, TemplateView
-from django.utils import timezone
-
-from simple_translation.middleware import filter_queryset_language
 
 from .models import Event
 
@@ -14,15 +11,9 @@ class EventListView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(EventListView, self).get_context_data(**kwargs)
 
-        yesterday = timezone.now().date() - timezone.timedelta(1)
+        upcoming = Event.objects.get_upcoming(self.request)
+        archived = Event.objects.get_archived(self.request)
 
-        qs = Event.objects.filter(is_published=True)
-        qs = qs.filter(start_date__gte=yesterday)
-        upcoming = filter_queryset_language(self.request, qs)
-
-        qs = Event.objects.filter(is_published=True)
-        qs = qs.filter(start_date__lt=yesterday)
-        archived = filter_queryset_language(self.request, qs)
         ctx.update({
             'upcoming_events': upcoming,
             'archived_events': archived,
