@@ -146,11 +146,6 @@ class Event(SimpleTranslationMixin, models.Model):
         null=True, blank=True,
     )
 
-    is_published = models.BooleanField(
-        default=False,
-        verbose_name=_('Is published'),
-    )
-
     creation_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=('Creation date'),
