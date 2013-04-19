@@ -63,35 +63,33 @@ class EventManager(models.Manager):
     """Custom manager for the ``Event`` model."""
     def get_archived(self, request):
         language = getattr(request, 'LANGUAGE_CODE', None)
+        if not language:
+            return self.model.objects.none()
 
         qs = self.get_query_set()
-        qs = qs.filter(eventtitle__is_published=True).distinct()
+        qs = qs.filter(
+            eventtitle__is_published=True,
+            eventtitle__language=language,
+        )
         qs = qs.filter(
             Q(start_date__lt=timezone.now()) & (
                 Q(end_date__isnull=True) | Q(end_date__lt=timezone.now())))
-
-        if not language:
-            return qs
-        qs = qs.filter(
-            eventtitle__language=language,
-        )
-        return qs
+        return qs.distinct()
 
     def get_upcoming(self, request):
         language = getattr(request, 'LANGUAGE_CODE', None)
+        if not language:
+            return self.model.objects.none()
 
         qs = self.get_query_set()
-        qs = qs.filter(eventtitle__is_published=True).distinct()
+        qs = qs.filter(
+            eventtitle__is_published=True,
+            eventtitle__language=language,
+        )
         qs = qs.filter(
             Q(end_date__gte=timezone.now()) |
             Q(start_date__gte=timezone.now()))
-
-        if not language:
-            return qs
-        qs = qs.filter(
-            eventtitle__language=language,
-        )
-        return qs
+        return qs.distinct()
 
 
 class Event(SimpleTranslationMixin, models.Model):

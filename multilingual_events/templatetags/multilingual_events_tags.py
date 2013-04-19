@@ -24,4 +24,6 @@ def get_events(context, amount=5):
     """
     request = context.get('request')
     qs = Event.objects.get_upcoming(request)
+    if not qs.count():
+        return qs
     return qs[:amount]
