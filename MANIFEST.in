@@ -3,7 +3,7 @@ include LICENSE
 include DESCRIPTION
 include CHANGELOG.txt
 include README.md
-graft multilingual_events 
-global-exclude *.orig *.pyc *.log
+graft multilingual_events
+global-exclude *.orig *.pyc *.log *.swp
 prune multilingual_events/tests/coverage
 prune multilingual_events/.ropeproject
