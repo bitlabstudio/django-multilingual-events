@@ -237,6 +237,22 @@ class Event(SimpleTranslationMixin, models.Model):
         return get_preferred_translation_from_lang(self, lang).title
 
 
+class EventPluginModel(CMSPlugin):
+    """
+    Model for the ``EventPlugin`` cms plugin.
+
+    :event: The event this plugin shows.
+
+    """
+    event = models.ForeignKey(
+        Event,
+        verbose_name=_('Event'),
+    )
+
+    def __unicode__(self):
+        return '{} ({})'.format(self.event, self.event.category)
+
+
 class EventTitle(models.Model):
     """
     Translateable fields of the ``Event`` model.

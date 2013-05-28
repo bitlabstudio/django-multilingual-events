@@ -5,7 +5,12 @@ from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
 
 from .forms import EventAgendaSessionForm, EventAgendaTalkForm
-from .models import EventAgendaDay, EventAgendaSession, EventAgendaTalk
+from .models import (
+    EventAgendaDay,
+    EventAgendaSession,
+    EventAgendaTalk,
+    EventPluginModel,
+)
 
 
 class EventAgendaDayPlugin(CMSPluginBase):
@@ -52,6 +57,20 @@ class EventAgendaTalkPlugin(CMSPluginBase):
         return context
 
 
+class EventPlugin(CMSPluginBase):
+    model = EventPluginModel
+    name = _('Event Plugin')
+    render_template = 'multilingual_events/event_plugin.html'
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'plugin': instance,
+            'event': instance.event,
+        })
+        return context
+
+
 plugin_pool.register_plugin(EventAgendaDayPlugin)
 plugin_pool.register_plugin(EventAgendaSessionPlugin)
 plugin_pool.register_plugin(EventAgendaTalkPlugin)
+plugin_pool.register_plugin(EventPlugin)

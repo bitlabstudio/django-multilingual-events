@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from ..models import Event
-from .factories import EventFactory, EventTitleFactory
+from .factories import EventFactory, EventTitleFactory, EventPluginModelFactory
 
 
 class EventManagerTestCase(TestCase):
@@ -54,6 +54,16 @@ class EventTestCase(TestCase):
     def test_model(self):
         instance = EventFactory()
         self.assertTrue(instance.pk, msg=(
+            'Should be able to instantiate and save the model.'))
+
+
+class EventPluginModelTestCase(TestCase):
+    """Tests for the ``EventPluginModel`` model."""
+    longMessage = True
+
+    def test_model(self):
+        obj = EventPluginModelFactory()
+        self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))
 
 

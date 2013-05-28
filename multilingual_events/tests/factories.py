@@ -4,7 +4,13 @@ from django.utils.timezone import now
 import factory
 from django_libs.tests.factories import SimpleTranslationMixin
 
-from ..models import Event, EventCategory, EventCategoryTitle, EventTitle
+from ..models import (
+    Event,
+    EventCategory,
+    EventCategoryTitle,
+    EventTitle,
+    EventPluginModel,
+)
 
 
 class EventCategoryFactory(SimpleTranslationMixin, factory.Factory):
@@ -41,6 +47,13 @@ class EventFactory(SimpleTranslationMixin, BaseEventFactory):
     @staticmethod
     def _get_translation_factory_and_field():
         return (EventTitleFactory, 'event')
+
+
+class EventPluginModelFactory(factory.Factory):
+    """Factory for ``EventPluginModel`` objects."""
+    FACTORY_FOR = EventPluginModel
+
+    event = factory.SubFactory(EventFactory)
 
 
 class EventTitleFactory(factory.Factory):

@@ -1,0 +1,9 @@
+{% load simple_translation_tags l10n %}
+
+{% with event|get_preferred_translation_from_request:request as event_title %}
+    <h3><a href="{{ event_title.get_absolute_url }}">{{ event_title.title }}</a></h3>
+    <p>
+        <span>{{ event.start_date|localize }}</span> /
+        <span>{{ event.category.get_translation.title }}</span>
+    </p>
+{% endwith %}
