@@ -9,17 +9,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'EventPluginModel'
-        db.create_table('cmsplugin_eventpluginmodel', (
-            ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['multilingual_events.Event'])),
-        ))
-        db.send_create_signal('multilingual_events', ['EventPluginModel'])
+        # Adding field 'EventPluginModel.display_type'
+        db.add_column('cmsplugin_eventpluginmodel', 'display_type',
+                      self.gf('django.db.models.fields.CharField')(default='small', max_length=256),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'EventPluginModel'
-        db.delete_table('cmsplugin_eventpluginmodel')
+        # Deleting field 'EventPluginModel.display_type'
+        db.delete_column('cmsplugin_eventpluginmodel', 'display_type')
 
 
     models = {
@@ -55,7 +53,7 @@ class Migration(SchemaMigration):
         'cms.cmsplugin': {
             'Meta': {'object_name': 'CMSPlugin'},
             'changed_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 5, 28, 0, 0)'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 5, 30, 0, 0)'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.CharField', [], {'max_length': '15', 'db_index': 'True'}),
             'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
@@ -157,6 +155,7 @@ class Migration(SchemaMigration):
         'multilingual_events.eventpluginmodel': {
             'Meta': {'object_name': 'EventPluginModel', 'db_table': "'cmsplugin_eventpluginmodel'", '_ormbases': ['cms.CMSPlugin']},
             'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
+            'display_type': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'event': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['multilingual_events.Event']"})
         },
         'multilingual_events.eventtitle': {
