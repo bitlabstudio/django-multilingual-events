@@ -53,6 +53,7 @@ class EventPluginModelFactory(factory.Factory):
     """Factory for ``EventPluginModel`` objects."""
     FACTORY_FOR = EventPluginModel
 
+    display_type = 'small'
     event = factory.SubFactory(EventFactory)
 
 

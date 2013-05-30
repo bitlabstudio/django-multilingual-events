@@ -14,6 +14,8 @@ from djangocms_utils.fields import M2MPlaceholderField
 from simple_translation.actions import SimpleTranslationPlaceholderActions
 from simple_translation.utils import get_preferred_translation_from_lang
 
+from .settings import DISPLAY_TYPE_CHOICES
+
 
 lat_lng_help_text = _(
     'You can figure out latitude and longitude at'
@@ -241,9 +243,15 @@ class EventPluginModel(CMSPlugin):
     """
     Model for the ``EventPlugin`` cms plugin.
 
+    :display_type: The way the plugin is displayed. E.g. 'big' or 'small'
     :event: The event this plugin shows.
 
     """
+    display_type = models.CharField(
+        max_length=256,
+        choices=DISPLAY_TYPE_CHOICES,
+        verbose_name=_('Display type'),
+    )
     event = models.ForeignKey(
         Event,
         verbose_name=_('Event'),
