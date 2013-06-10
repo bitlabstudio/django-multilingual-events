@@ -1,5 +1,7 @@
 === ongoing ===
 
+- added "detailed_description" placeholder to event model
+
 === 0.6.5 ===
 
 - fixed missing migration

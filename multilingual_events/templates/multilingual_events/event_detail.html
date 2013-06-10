@@ -7,9 +7,12 @@
     <a href="{% url "multilingual_events_list" %}">{% trans "Back to Events" %}</a>
     <h1>{{ event_title.title }}</h1>
     <p>{{ event_title.description }}<p>
-            
+
     {% with event.placeholders|choose_placeholder:"content" as content %}
         {% render_placeholder content %}
+    {% endwith %}
+    {% with event.placeholders|choose_placeholder:"detailed_description" as detailed_description %}
+        {% render_placeholder detailed_description %}
     {% endwith %}
 {% endwith %}
 {% endblock %}
