@@ -1,5 +1,8 @@
 === ongoing ===
 
+
+=== 0.6.6 ===
+
 - added "detailed_description" placeholder to event model
 
 === 0.6.5 ===
