@@ -1,5 +1,8 @@
 === ongoing ===
 
+
+=== 0.6.8 ===
+
 - only appending dots to meta description if it needs shortening.
 
 === 0.6.7 ===
