@@ -275,6 +275,7 @@ class EventTitle(models.Model):
     :description: A description of the event
     :is_published: If ``True``, the event would be returned by the
       ``get_events`` templatetag.
+    :meta_description: The meta description to display for the detail page.
 
     """
     title = models.CharField(
@@ -328,9 +329,20 @@ class EventTitle(models.Model):
         verbose_name=_('Is published'),
     )
 
+    meta_description = models.TextField(
+        max_length=512,
+        verbose_name=_('Meta description'),
+        blank=True,
+    )
+
     # Needed by simple_translation
     event = models.ForeignKey(Event, verbose_name=_('Event'))
     language = models.CharField(max_length=5, verbose_name=('Language'))
+
+    def get_meta_description(self):
+        if self.meta_description:
+            return self.meta_description
+        return '{}...'.format(self.description[:160])
 
     def get_absolute_url(self):
         middleware = (

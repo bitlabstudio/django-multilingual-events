@@ -1,6 +1,8 @@
 === ongoing ===
 
 
+- added meta_description field to Event model.
+
 === 0.6.6 ===
 
 - added "detailed_description" placeholder to event model
