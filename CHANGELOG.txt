@@ -1,6 +1,8 @@
 === ongoing ===
 
 
+=== 0.6.7 ===
+
 - added meta_description field to Event model.
 
 === 0.6.6 ===
