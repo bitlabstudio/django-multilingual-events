@@ -342,7 +342,9 @@ class EventTitle(models.Model):
     def get_meta_description(self):
         if self.meta_description:
             return self.meta_description
-        return '{}...'.format(self.description[:160])
+        if len(self.description) > 160:
+            return '{}...'.format(self.description[:160])
+        return self.description
 
     def get_absolute_url(self):
         middleware = (
