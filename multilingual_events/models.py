@@ -1,4 +1,6 @@
 """Models for the ``multilingual_events`` app."""
+from __future__ import unicode_literals
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -343,8 +345,8 @@ class EventTitle(models.Model):
         if self.meta_description:
             return self.meta_description
         if len(self.description) > 160:
-            desc = self.description.encode('utf-8').replace('"', '&quot;')
-            return '{}...'.format(desc[:160])
+            return '{}...'.format(
+                self.description.replace('"', '&quot;')[:160])
         return self.description.replace('"', '&quot;')
 
     def get_absolute_url(self):

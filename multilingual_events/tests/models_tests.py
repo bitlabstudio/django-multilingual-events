@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
 """Tests for the models of the ``multilingual_events`` app."""
+from __future__ import unicode_literals
+
 from mock import Mock
+from django.contrib.webdesign.lorem_ipsum import paragraphs
 from django.test import TestCase
 from django.utils import timezone
 
@@ -75,3 +79,16 @@ class EventTitleTestCase(TestCase):
         instance = EventTitleFactory()
         self.assertTrue(instance.pk, msg=(
             'Should be able to instantiate and save the model.'))
+
+    def test_get_meta_description(self):
+        title = EventTitleFactory(description='ä "description"')
+        self.assertEqual(title.get_meta_description(),
+                         title.description.replace('"', '&quot;'))
+
+        title.description = paragraphs(1)[0]
+        self.assertEqual(title.get_meta_description(),
+                         paragraphs(1)[0][:160]+'...')
+
+        title.meta_description = paragraphs(1)[0]
+        self.assertEqual(title.get_meta_description(),
+                         paragraphs(1)[0])
