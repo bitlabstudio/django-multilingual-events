@@ -200,6 +200,9 @@ class Event(SimpleTranslationMixin, models.Model):
     def __unicode__(self):
         return self.get_title()
 
+    def get_absolute_url(self):
+        return reverse('multilingual_events_detail', kwargs={'pk': self.pk})
+
     def get_address(self):
         """Returns the address with country."""
         trans = self.get_translation()
