@@ -60,8 +60,8 @@ class EventManager(TranslationManager):
 
         qs = self.get_query_set()
         qs = qs.filter(
-            eventtitle__is_published=True,
-            eventtitle__language=language,
+            translations__is_published=True,
+            translations__language_code=language,
         )
         qs = qs.filter(
             Q(start_date__lt=timezone.now()) & (
@@ -75,8 +75,8 @@ class EventManager(TranslationManager):
 
         qs = self.get_query_set()
         qs = qs.filter(
-            eventtitle__is_published=True,
-            eventtitle__language=language,
+            translations__is_published=True,
+            translations__language_code=language,
         )
         qs = qs.filter(
             Q(end_date__gte=timezone.now()) |
