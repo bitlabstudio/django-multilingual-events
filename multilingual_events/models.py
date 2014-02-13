@@ -249,18 +249,17 @@ class Event(TranslatableModel):
 
     def get_address(self):
         """Returns the address with country."""
-        trans = self.get_translation()
         full_address = u''
-        if trans.venue_name:
-            full_address += u'{0}<br />'.format(trans.venue_name)
-        if trans.address_1:
-            full_address += u'{0}<br />'.format(trans.address_1)
-        if trans.address_2:
-            full_address += u'{0}<br />'.format(trans.address_2)
-        if trans.city:
-            if trans.postal_code:
-                full_address += u'{0} '.format(trans.postal_code)
-            full_address += u'{0}<br />'.format(trans.city)
+        if self.venue_name:
+            full_address += u'{0}<br />'.format(self.venue_name)
+        if self.address_1:
+            full_address += u'{0}<br />'.format(self.address_1)
+        if self.address_2:
+            full_address += u'{0}<br />'.format(self.address_2)
+        if self.city:
+            if self.postal_code:
+                full_address += u'{0} '.format(self.postal_code)
+            full_address += u'{0}<br />'.format(self.city)
         full_address += u'{0}'.format(unicode(self.country.name))
         return full_address
 
@@ -269,10 +268,9 @@ class Event(TranslatableModel):
             pk=self.pk).order_by('start_date')
 
     def get_city_and_country(self):
-        trans = self.get_translation()
         result = u''
-        if trans.city:
-            result += u'{0}, '.format(trans.city)
+        if self.city:
+            result += u'{0}, '.format(self.city)
         result += unicode(self.country.name)
         return result
 
