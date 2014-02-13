@@ -91,6 +91,7 @@ EXTERNAL_APPS = [
     'document_library',
     'tagging',
     'simple_translation',
+    'hvad',
 ]
 
 INTERNAL_APPS = [

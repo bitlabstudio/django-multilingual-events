@@ -20,6 +20,8 @@ django-countries==1.5
 django-document-library==0.9.3
 cmsplugin_blog==1.1.2
 
+-e git+https://github.com/KristianOellegaard/django-hvad.git@0e2101f15404eaf9611cd6cf843bfc424117b227#egg=hvad
+
 
 # ==============================================================
 # Packages needed for running the tests. Needed by contributors.
