@@ -1,6 +1,8 @@
 """Settings that need to be set in order to run the tests."""
 import os
 
+gettext = lambda s: s
+
 DEBUG = True
 FILER_DEBUG = True
 
@@ -15,7 +17,13 @@ DATABASES = {
 
 USE_I18N = True
 
-ROOT_URLCONF = 'multilingual_events.tests.urls'
+# Settings needed to test a multilingual blog
+LANGUAGE_CODE = 'en'
+LANGUAGES = [
+    ('en', gettext('English')),
+    ('de', gettext('German')),
+]
+ROOT_URLCONF = 'multilingual_events.tests.test_app.urls'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -45,6 +53,11 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'cms.middleware.multilingual.MultilingualURLMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'simple_translation.middleware.MultilingualGenericsMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -53,6 +66,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
 )
 
 EXTERNAL_APPS = [
@@ -67,11 +82,15 @@ EXTERNAL_APPS = [
     'django.contrib.sites',
     'django_nose',
     'cms',
+    'cmsplugin_blog',
     'sekizai',
     'menus',
     'filer',
+    'easy_thumbnails',
     'mptt',
     'document_library',
+    'tagging',
+    'simple_translation',
 ]
 
 INTERNAL_APPS = [
@@ -93,3 +112,10 @@ CMS_FRONTEND_LANGUAGES = ('en', 'de', )
 CMS_TEMPLATES = (
     ('standard.html', 'Standard'),
 )
+
+# versions might be a bit old, but for tests it will probably do
+JQUERY_JS = 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'
+JQUERY_UI_JS = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js'  # NOQA
+JQUERY_UI_CSS = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css'  # NOQA
+
+SECRET_KEY = 'foobar'
