@@ -1,60 +1,56 @@
+# flake8: noqa
 # -*- coding: utf-8 -*-
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
+class Migration(DataMigration):
 
-class Migration(SchemaMigration):
+    depends_on =(
+        ('cms', '0058_placeholderref_table_rename'),
+    )
+    needed_by = (
+        ('document_library', '0022_move_from_simple_trans_to_hvad'),
+    )
+
+    def migrate_placeholder(self, orm, event, old_slot, new_slot,
+                            new_field):
+        placeholder = None
+        try:
+            placeholder_m2m_object = event.placeholders.through.objects.get(
+                event=event, placeholder__slot=old_slot)
+            placeholder = placeholder_m2m_object.placeholder
+        except ObjectDoesNotExist:
+            pass
+
+        if placeholder:
+            new_placeholder = orm['cms.Placeholder'].objects.create(
+                slot=new_slot)
+            for plugin in placeholder.get_plugins():
+                plugin.placeholder_id = new_placeholder.pk
+                plugin.save()
+            setattr(event, new_field, new_placeholder)
+            event.save()
+            try:
+                placeholder_m2m_object.delete()
+                placeholder.delete()
+            except ObjectDoesNotExist:
+                pass
 
     def forwards(self, orm):
-        # Deleting model 'EventCategoryTitle'
-        db.delete_table('multilingual_events_eventcategorytitle')
-
-        # Deleting model 'EventTitle'
-        db.delete_table('multilingual_events_eventtitle')
-
-        # Removing M2M table for field placeholders on 'Event'
-        db.delete_table(db.shorten_name('multilingual_events_event_placeholders'))
-
+        for event in orm['multilingual_events.Event'].objects.all():
+            self.migrate_placeholder(
+                orm, event, 'conference', 'multilingual_events_conference',
+                'conference')
+            self.migrate_placeholder(
+                orm, event, 'detailed_description',
+                'multilingual_events_detailed_description',
+                'detailed_description')
 
     def backwards(self, orm):
-        # Adding model 'EventCategoryTitle'
-        db.create_table('multilingual_events_eventcategorytitle', (
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['multilingual_events.EventCategory'])),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('language', self.gf('django.db.models.fields.CharField')(max_length=2)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=256)),
-        ))
-        db.send_create_signal('multilingual_events', ['EventCategoryTitle'])
-
-        # Adding model 'EventTitle'
-        db.create_table('multilingual_events_eventtitle', (
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('meta_description', self.gf('django.db.models.fields.TextField')(max_length=512, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('room', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('language', self.gf('django.db.models.fields.CharField')(max_length=5)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=512)),
-            ('venue_name', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['multilingual_events.Event'])),
-            ('address_1', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('address_2', self.gf('django.db.models.fields.CharField')(max_length=256, blank=True)),
-            ('is_published', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('multilingual_events', ['EventTitle'])
-
-        # Adding M2M table for field placeholders on 'Event'
-        m2m_table_name = db.shorten_name('multilingual_events_event_placeholders')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('event', models.ForeignKey(orm['multilingual_events.event'], null=False)),
-            ('placeholder', models.ForeignKey(orm['cms.placeholder'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['event_id', 'placeholder_id'])
-
+        pass
 
     models = {
         'auth.group': {
@@ -148,6 +144,7 @@ class Migration(SchemaMigration):
             'last_update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'lat': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
             'lng': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'placeholders': ('djangocms_utils.fields.M2MPlaceholderField', [], {'to': "orm['cms.Placeholder']", 'symmetrical': 'False'}),
             'start_date': ('django.db.models.fields.DateField', [], {}),
             'start_time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
             'timezone': ('django.db.models.fields.CharField', [], {'max_length': '65', 'blank': 'True'}),
@@ -184,6 +181,13 @@ class Migration(SchemaMigration):
             'position': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         },
+        'multilingual_events.eventcategorytitle': {
+            'Meta': {'object_name': 'EventCategoryTitle'},
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['multilingual_events.EventCategory']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'language': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '256'})
+        },
         'multilingual_events.eventcategorytranslation': {
             'Meta': {'unique_together': "[('language_code', 'master')]", 'object_name': 'EventCategoryTranslation', 'db_table': "'multilingual_events_eventcategory_translation'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -196,6 +200,22 @@ class Migration(SchemaMigration):
             'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
             'display_type': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'event': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['multilingual_events.Event']"})
+        },
+        'multilingual_events.eventtitle': {
+            'Meta': {'object_name': 'EventTitle'},
+            'address_1': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'}),
+            'address_2': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['multilingual_events.Event']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'language': ('django.db.models.fields.CharField', [], {'max_length': '5'}),
+            'meta_description': ('django.db.models.fields.TextField', [], {'max_length': '512', 'blank': 'True'}),
+            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'}),
+            'room': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '512'}),
+            'venue_name': ('django.db.models.fields.CharField', [], {'max_length': '256', 'blank': 'True'})
         },
         'multilingual_events.eventtranslation': {
             'Meta': {'unique_together': "[('language_code', 'master')]", 'object_name': 'EventTranslation', 'db_table': "'multilingual_events_event_translation'"},
@@ -216,3 +236,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['multilingual_events']
+    symmetrical = True

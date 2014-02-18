@@ -8,30 +8,6 @@ from django.db import models
 
 class Migration(DataMigration):
 
-    def migrate_placeholder(self, orm, event, old_slot, new_slot,
-                            new_field):
-        placeholder = None
-        try:
-            placeholder_m2m_object = event.placeholders.through.objects.get(
-                event=event, placeholder__slot=old_slot)
-            placeholder = placeholder_m2m_object.placeholder
-        except ObjectDoesNotExist:
-            pass
-
-        if placeholder:
-            new_placeholder = orm['cms.Placeholder'].objects.create(
-                slot=new_slot)
-            for plugin in placeholder.get_plugins():
-                plugin.placeholder_id = new_placeholder.pk
-                plugin.save()
-            setattr(event, new_field, new_placeholder)
-            event.save()
-            try:
-                placeholder_m2m_object.delete()
-                placeholder.delete()
-            except ObjectDoesNotExist:
-                pass
-
     def forwards(self, orm):
         for category_title in orm[
                 'multilingual_events.EventCategoryTitle'].objects.all():
@@ -41,14 +17,6 @@ class Migration(DataMigration):
                 language_code=category_title.language,
             )
 
-        for event in orm['multilingual_events.Event'].objects.all():
-            self.migrate_placeholder(
-                orm, event, 'conference', 'multilingual_events_conference',
-                'conference')
-            self.migrate_placeholder(
-                orm, event, 'detailed_description',
-                'multilingual_events_detailed_description',
-                'detailed_description')
         for event_title in orm['multilingual_events.EventTitle'].objects.all():
             orm['multilingual_events.EventTranslation'].objects.create(
                 title=event_title.title,
