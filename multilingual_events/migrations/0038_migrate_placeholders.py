@@ -11,9 +11,6 @@ class Migration(DataMigration):
     depends_on =(
         ('cms', '0058_placeholderref_table_rename'),
     )
-    needed_by = (
-        ('document_library', '0022_move_from_simple_trans_to_hvad'),
-    )
 
     def migrate_placeholder(self, orm, event, old_slot, new_slot,
                             new_field):
