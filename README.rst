@@ -15,7 +15,7 @@ Prerequisites:
 
 * Django
 * django-hvad
-* django-cms 3 (beta)
+* django-cms (tested with v3 beta)
 * django-document-library
 
 If you want to install the latest stable release from PyPi::
