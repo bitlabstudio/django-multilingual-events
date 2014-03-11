@@ -1,18 +1,12 @@
 {% extends "base.html" %}
-{% load i18n placeholder_tags simple_translation_tags %}
-{% load url from future %}
+{% load i18n placeholder_tags %}
 
 {% block main %}
-{% with event|get_preferred_translation_from_request:request as event_title %}
-    <a href="{% url "multilingual_events_list" %}">{% trans "Back to Events" %}</a>
-    <h1>{{ event_title.title }}</h1>
-    <p>{{ event_title.description }}<p>
+<a href="{% url "multilingual_events_list" %}">{% trans "Back to Events" %}</a>
+<h1>{{ event.title }}</h1>
+<p>{{ event.description }}<p>
 
-    {% with event.placeholders|choose_placeholder:"content" as content %}
-        {% render_placeholder content %}
-    {% endwith %}
-    {% with event.placeholders|choose_placeholder:"detailed_description" as detailed_description %}
-        {% render_placeholder detailed_description %}
-    {% endwith %}
-{% endwith %}
+{% render_placeholder event.content %}
+{% render_placeholder event.detailed_description %}
+
 {% endblock %}

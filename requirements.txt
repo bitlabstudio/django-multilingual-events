@@ -3,20 +3,31 @@
 # ===========================================================================
 # Packages essential to this app. Needed by anyone who wants to use this app.
 # ===========================================================================
-django==1.4.3
-django-libs
-django-cms==2.3.5
-# There is a problem with STATIC_FILES in the latest commit (as of 2012-02)
--e git+git://github.com/fivethreeo/cmsplugin-blog.git@cd91a4eb066437aa254574759eed51da973314ab#egg=cmsplugin_blog
-simple-translation==0.8.6
-South==0.7.6
+django==1.6.2
+-e git+https://github.com/KristianOellegaard/django-hvad.git@0e2101f15404eaf9611cd6cf843bfc424117b227#egg=hvad
+# django-hvad==0.3
+South==0.8.4
+-e git+https://github.com/bitmazk/django-multilingual-news.git#egg=multilingual_news
+django-tagging==0.3.1
+django-missing==0.1.11
 
+-e git+https://github.com/divio/django-cms.git@8327844ff84df60e36c9ef1a8f2e63d740519a51#egg=cms
+django-filer==0.9.5
+cmsplugin-filer==0.9.5
+djangocms-text-ckeditor==2.1
+djangocms-link==1.1.3
+
+-e git+https://github.com/bitmazk/django-document-library.git@develop#egg=document_library
+# django-document-library==0.9.3
+
+django-countries==1.5
 
 # ==============================================================
 # Packages needed for running the tests. Needed by contributors.
 # ==============================================================
 Fabric
 factory-boy
+flake8
 mock
 django-nose
 coverage

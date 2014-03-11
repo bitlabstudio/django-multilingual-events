@@ -1,7 +1,11 @@
-Django Multilingual Events 
+Django Multilingual Events
 ==========================
 
-TODO: Describe app
+An app for collecting information about events and agendas.
+
+This could be useful for e.g. conventions, meetings etc.
+
+TODO: Describe app in more detail
 
 
 Installation
@@ -10,11 +14,9 @@ Installation
 Prerequisites:
 
 * Django
-* simple-translation
-* django-cms
-* cmsplugin-blog
+* django-hvad
+* django-cms 3 (beta)
 * django-document-library
-* TODO: Is that all?
 
 If you want to install the latest stable release from PyPi::
 
@@ -33,7 +35,7 @@ Add ``multilingnual_events`` to your ``INSTALLED_APPS``::
 
 Run the South migrations::
 
-    ./manage.py migrate multilingual_events 
+    ./manage.py migrate multilingual_events
 
 
 Usage

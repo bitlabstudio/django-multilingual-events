@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.test import TestCase, RequestFactory
 
 from ..templatetags.multilingual_events_tags import get_events
-from .factories import EventTitleFactory
+from .factories import EventFactory
 
 
 class GetEventsTestCase(TestCase):
@@ -11,8 +11,8 @@ class GetEventsTestCase(TestCase):
     longMessage = True
 
     def test_tag(self):
-        EventTitleFactory()
-        EventTitleFactory()
+        EventFactory()
+        EventFactory()
         req = RequestFactory().get('/')
         req.LANGUAGE_CODE = 'en'
         context = RequestContext(req)

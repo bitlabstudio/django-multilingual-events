@@ -9,6 +9,25 @@ def read(fname):
     except IOError:
         return ''
 
+install_requires = [
+    'django',
+    'south',
+]
+
+dependency_links = [
+    'https://github.com/divio/django-cms/tarball/3a09d5c39b3469e64aeecc0205a193f5b70c2061',  # NOQA
+    # needs this dev version for django 1.6 fixes
+    'https://github.com/KristianOellegaard/django-hvad/tarball/0e2101f15404eaf9611cd6cf843bfc424117b227',  # NOQA
+]
+
+tests_require = [
+    'fabric',
+    'factory_boy',
+    'django-nose',
+    'coverage',
+    'django-coverage',
+    'mock',
+]
 
 setup(
     name="django-multilingual-events",
@@ -17,19 +36,14 @@ setup(
     long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
-    keywords='django, event, i18n, simple-translation, multilingual',
+    keywords='django, event, i18n, hvad, multilingual, agenda, planning',
     author='Martin Brochhaus',
     author_email='mbrochh@gmail.com',
     url="https://github.com/bitmazk/django-multilingnual-events",
     packages=find_packages(),
     include_package_data=True,
-    tests_require=[
-        'fabric',
-        'factory_boy',
-        'django-nose',
-        'coverage',
-        'django-coverage',
-        'mock',
-    ],
+    install_requires=install_requires,
+    dependency_links=dependency_links,
+    tests_require=tests_require,
     test_suite='multilingual_events.tests.runtests.runtests',
 )

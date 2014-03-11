@@ -3,12 +3,11 @@
 from __future__ import unicode_literals
 
 from mock import Mock
-from django.contrib.webdesign.lorem_ipsum import paragraphs
 from django.test import TestCase
 from django.utils import timezone
 
 from ..models import Event
-from .factories import EventFactory, EventTitleFactory, EventPluginModelFactory
+from .factories import EventFactory, EventPluginModelFactory
 
 
 class EventManagerTestCase(TestCase):
@@ -18,20 +17,20 @@ class EventManagerTestCase(TestCase):
     def setUp(self):
         # the following two events should be visible
         # a visible event
-        EventTitleFactory()
+        EventFactory()
 
         # a past event with future end date
         past = timezone.now() - timezone.timedelta(1)
         future = timezone.now() + timezone.timedelta(1)
-        EventTitleFactory(event__start_date=past, event__end_date=future)
+        EventFactory(start_date=past, end_date=future)
 
         # the following two events should be invisible
         # an invisible event
-        EventTitleFactory(is_published=False)
+        EventFactory(is_published=False)
 
         # a past event
         past = timezone.now() - timezone.timedelta(1)
-        EventTitleFactory(event__start_date=past)
+        EventFactory(start_date=past)
 
     def test_get_visible_and_get_archived(self):
         manager = Event.objects
@@ -45,7 +44,7 @@ class EventManagerTestCase(TestCase):
 
         # another past event
         past = timezone.now() - timezone.timedelta(1)
-        EventTitleFactory(event__start_date=past)
+        EventFactory(start_date=past)
 
         result = manager.get_archived(request)
         self.assertEqual(result.count(), 2)
@@ -69,26 +68,3 @@ class EventPluginModelTestCase(TestCase):
         obj = EventPluginModelFactory()
         self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))
-
-
-class EventTitleTestCase(TestCase):
-    """Tests for the ``EventTitle`` model class."""
-    longMessage = True
-
-    def test_model(self):
-        instance = EventTitleFactory()
-        self.assertTrue(instance.pk, msg=(
-            'Should be able to instantiate and save the model.'))
-
-    def test_get_meta_description(self):
-        title = EventTitleFactory(description='ä "description"')
-        self.assertEqual(title.get_meta_description(),
-                         title.description.replace('"', '&quot;'))
-
-        title.description = paragraphs(1)[0]
-        self.assertEqual(title.get_meta_description(),
-                         paragraphs(1)[0][:160]+'...')
-
-        title.meta_description = paragraphs(1)[0]
-        self.assertEqual(title.get_meta_description(),
-                         paragraphs(1)[0])

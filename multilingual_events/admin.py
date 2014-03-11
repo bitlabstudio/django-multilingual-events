@@ -2,29 +2,33 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from cmsplugin_blog.admin import M2MPlaceholderAdmin
-from django_libs.admin import MultilingualPublishMixin
-from simple_translation.admin import TranslationAdmin
+from hvad.admin import TranslatableAdmin
 
 from .models import Event, EventCategory
 
 
-class EventCategoryAdmin(TranslationAdmin):
+class EventCategoryAdmin(TranslatableAdmin):
     """Admin class for the ``EventCategory`` model."""
-    list_display = ['title', 'languages', ]
+    list_display = ['get_title', 'all_translations', ]
 
-    def title(self, obj):
-        return obj.get_translation().title
-    title.short_description = _('Title')
+    def get_title(self, obj):
+        return obj.title
+    get_title.short_description = _('Title')
 
 
-class EventAdmin(MultilingualPublishMixin, M2MPlaceholderAdmin):
+class EventAdmin(TranslatableAdmin):
     """Admin class for the ``Event`` model."""
-    list_display = ['title', 'start_date', 'user', 'languages', 'is_published']
+    list_display = ['get_title', 'start_date', 'user', 'all_translations',
+                    'get_is_published']
 
-    def title(self, obj):
-        return obj.get_translation().title
-    title.short_description = _('Title')
+    def get_title(self, obj):
+        return obj.title
+    get_title.short_description = _('Title')
+
+    def get_is_published(self, obj):
+        return obj.is_published
+    get_is_published.short_description = _('Is published')
+    get_is_published.boolean = True
 
 
 admin.site.register(Event, EventAdmin)
