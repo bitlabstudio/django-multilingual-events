@@ -4,10 +4,8 @@
 # Packages essential to this app. Needed by anyone who wants to use this app.
 # ===========================================================================
 django==1.6.2
--e git+https://github.com/KristianOellegaard/django-hvad.git@0e2101f15404eaf9611cd6cf843bfc424117b227#egg=hvad
-# django-hvad==0.3
+django-hvad==0.4
 South==0.8.4
--e git+https://github.com/bitmazk/django-multilingual-news.git#egg=multilingual_news
 django-tagging==0.3.1
 django-missing==0.1.11
 

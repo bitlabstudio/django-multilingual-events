@@ -1,8 +1,8 @@
 """Tests for the views of the ``multilingual_events`` app."""
 from django.test import TestCase, RequestFactory
 
-from ..factories import EventFactory
-from ...views import EventDetailView, EventListView
+from .factories import EventFactory
+from ..views import EventDetailView, EventListView
 
 
 class EventListViewTestCase(TestCase):

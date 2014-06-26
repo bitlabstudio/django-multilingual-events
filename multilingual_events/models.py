@@ -281,9 +281,6 @@ class Event(TranslatableModel):
         amount = self.end_date - self.start_date
         return amount.days + 1
 
-    def get_title(self):
-        return self.title
-
 
 class EventPluginModel(CMSPlugin):
     """

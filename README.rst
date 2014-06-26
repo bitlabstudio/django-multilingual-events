@@ -5,8 +5,6 @@ An app for collecting information about events and agendas.
 
 This could be useful for e.g. conventions, meetings etc.
 
-TODO: Describe app in more detail
-
 
 Installation
 ------------
@@ -30,7 +28,14 @@ Add ``multilingnual_events`` to your ``INSTALLED_APPS``::
 
     INSTALLED_APPS = (
         ...,
+        'document_library',
+        'easy_thumbnails',
+        'filer',
+        'hvad',
         'multilingual_events',
+        'people',
+        'cms',
+        'mptt',
     )
 
 Run the South migrations::
@@ -41,7 +46,11 @@ Run the South migrations::
 Usage
 -----
 
-TODO: Describe usage
+Using the apphook
++++++++++++++++++
+
+Simply create a django-cms page and select ``Multilingual Events Apphook`` in
+the ``Application`` field of the ``Advanced Settings``.
 
 
 Roadmap

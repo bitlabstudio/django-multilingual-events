@@ -11,12 +11,11 @@ def read(fname):
 
 install_requires = [
     'django',
+    'django-cms',
     'south',
-]
-
-dependency_links = [
-    # needs this dev version for django 1.6 fixes
-    'https://github.com/KristianOellegaard/django-hvad/tarball/0e2101f15404eaf9611cd6cf843bfc424117b227',  # NOQA
+    'django-countries==1.5',
+    'django-hvad>=0.4',
+    'django-document-library',
 ]
 
 tests_require = [
@@ -42,7 +41,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,
-    dependency_links=dependency_links,
     tests_require=tests_require,
     test_suite='multilingual_events.tests.runtests.runtests',
 )

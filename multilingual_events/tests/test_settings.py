@@ -83,15 +83,14 @@ EXTERNAL_APPS = [
     'django.contrib.sites',
     'django_nose',
     'cms',
-    'multilingual_news',
     'sekizai',
     'menus',
     'filer',
     'easy_thumbnails',
     'mptt',
     'document_library',
-    'tagging',
     'hvad',
+    'people',
 ]
 
 INTERNAL_APPS = [

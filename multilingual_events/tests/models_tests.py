@@ -54,10 +54,42 @@ class EventTestCase(TestCase):
     """Tests for the ``Event`` model class."""
     longMessage = True
 
+    def setUp(self):
+        self.event = EventFactory()
+
     def test_model(self):
-        instance = EventFactory()
-        self.assertTrue(instance.pk, msg=(
+        self.assertTrue(self.event.pk, msg=(
             'Should be able to instantiate and save the model.'))
+
+    def test_get_address(self):
+        self.assertEqual(self.event.get_address(), '', msg=(
+            'Should return an empty address.'))
+        self.event.venue_name = 'Foo'
+        self.event.address_1 = 'Bar'
+        self.event.address_2 = 'Foo'
+        self.event.city = 'Bar'
+        self.event.postal_code = '12345'
+        self.assertEqual(self.event.get_address(),
+                         'Foo<br />Bar<br />Foo<br />12345 Bar<br />',
+                         msg=('Should return a formatted address.'))
+
+    def test_get_alternative_events(self):
+        self.assertEqual(len(self.event.get_alternative_events()), 0, msg=(
+            'Should return an empty list of alternative events.'))
+
+    def test_get_city_and_country(self):
+        self.assertEqual(self.event.get_city_and_country(), '', msg=(
+            'Should return an empty string.'))
+        self.event.city = 'Bar'
+        self.assertEqual(self.event.get_city_and_country(), 'Bar, ', msg=(
+            'Should return the city.'))
+
+    def test_get_number_of_days(self):
+        self.assertEqual(self.event.get_number_of_days(), 1, msg=(
+            'Should return the duration of one day.'))
+        self.event.end_date = timezone.now() + timezone.timedelta(2)
+        self.assertEqual(self.event.get_number_of_days(), 3, msg=(
+            'Should return the duration of three days.'))
 
 
 class EventPluginModelTestCase(TestCase):
