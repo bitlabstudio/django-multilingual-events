@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
 from django_countries import CountryField
+from filer.fields.image import FilerImageField
 from hvad.models import TranslatedFields, TranslatableModel, TranslationManager
 
 from .settings import DISPLAY_TYPE_CHOICES
@@ -182,6 +183,11 @@ class Event(TranslatableModel):
 
     country = CountryField(
         verbose_name=_('Country'),
+        null=True, blank=True,
+    )
+
+    image = FilerImageField(
+        verbose_name=_('Image'),
         null=True, blank=True,
     )
 
