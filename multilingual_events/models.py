@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
-from django_countries import CountryField
+from django_countries.fields import CountryField
 from filer.fields.image import FilerImageField
 from hvad.models import TranslatedFields, TranslatableModel, TranslationManager
 

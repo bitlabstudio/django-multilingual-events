@@ -13,7 +13,7 @@ install_requires = [
     'django',
     'django-cms',
     'south',
-    'django-countries==1.5',
+    'django-countries==2.1.2',
     'django-hvad>=0.4',
     'django-document-library',
 ]

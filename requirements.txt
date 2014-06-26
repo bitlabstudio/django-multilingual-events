@@ -18,7 +18,7 @@ djangocms-link==1.1.3
 -e git+https://github.com/bitmazk/django-document-library.git@develop#egg=document_library
 # django-document-library==0.9.3
 
-django-countries==1.5
+django-countries==2.1.2
 
 # ==============================================================
 # Packages needed for running the tests. Needed by contributors.
