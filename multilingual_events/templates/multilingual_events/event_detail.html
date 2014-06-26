@@ -1,12 +1,21 @@
 {% extends "base.html" %}
-{% load i18n placeholder_tags %}
+{% load i18n cms_tags %}
+
+{% block title %}{{ event.title }}{% endblock %}
 
 {% block main %}
-<a href="{% url "multilingual_events_list" %}">{% trans "Back to Events" %}</a>
-<h1>{{ event.title }}</h1>
-<p>{{ event.description }}<p>
-
-{% render_placeholder event.content %}
-{% render_placeholder event.detailed_description %}
-
+<div class="row">
+    <div class="col-md-4">
+        {% if event.image %}
+            <img class="margin-top" src="{{ event.image.url }}" alt="{{ event.image.original_filename }}">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h2>{{ event.title }} <small>{{ event.start_date|date:"DATE_FORMAT" }}{% if event.end_date %} - {{ event.end_date|date:"DATE_FORMAT" }}{% endif %}</small></h2>
+        <p>{{ event.description }}</p>
+        {% render_placeholder event.conference %}
+        {% render_placeholder event.detailed_description %}
+        <a href="{% url "multilingual_events_list" %}">&larr; {% trans "back" %}</a>
+    </div>
+</div>
 {% endblock %}

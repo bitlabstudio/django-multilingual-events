@@ -1,5 +1,8 @@
 === ongoing ===
 
+- Improved event manager functions
+- Improved templates
+
 === 1.1 ===
 
 - Added image field

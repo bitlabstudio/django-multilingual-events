@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
 
 from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
@@ -55,7 +55,7 @@ class EventCategory(TranslatableModel):
 class EventManager(TranslationManager):
     """Custom manager for the ``Event`` model."""
     def get_archived(self, request):
-        language = getattr(request, 'LANGUAGE_CODE', None)
+        language = getattr(request, 'LANGUAGE_CODE', get_language())
         if not language:
             return self.model.objects.none()
 
@@ -70,7 +70,7 @@ class EventManager(TranslationManager):
         return qs.distinct()
 
     def get_upcoming(self, request):
-        language = getattr(request, 'LANGUAGE_CODE', None)
+        language = getattr(request, 'LANGUAGE_CODE', get_language())
         if not language:
             return self.model.objects.none()
 
