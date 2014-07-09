@@ -1,5 +1,7 @@
 === ongoing ===
 
+- Added sitemap
+
 === 1.2 ===
 
 - Improved event manager functions

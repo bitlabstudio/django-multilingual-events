@@ -53,6 +53,22 @@ Simply create a django-cms page and select ``Multilingual Events Apphook`` in
 the ``Application`` field of the ``Advanced Settings``.
 
 
+Sitemaps
+++++++++
+
+To add a sitemap of your events, add the following to your urlconf: ::
+
+    from multilingual_events.sitemaps import EventSitemap
+
+    urlpatterns += patterns(
+        '',
+        url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {
+            'sitemaps': {
+                'events': EventSitemap,
+            }, }),
+    )
+
+
 Roadmap
 -------
 
