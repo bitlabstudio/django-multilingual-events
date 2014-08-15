@@ -48,6 +48,11 @@ class EventCategory(TranslatableModel):
         )
     )
 
+    class Meta:
+        ordering = ('slug', )
+        verbose_name = _('Event Category')
+        verbose_name_plural = _('Event Categories')
+
     def __unicode__(self):
         return self.safe_translation_getter('title', self.slug)
 
@@ -245,6 +250,8 @@ class Event(TranslatableModel):
 
     class Meta:
         ordering = ('start_date', )
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
 
     def __unicode__(self):
         return self.safe_translation_getter('title', 'Event on the {0}'.format(
