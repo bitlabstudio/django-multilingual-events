@@ -1,7 +1,7 @@
 """Tests for the views of the ``multilingual_events`` app."""
 from django.test import TestCase, RequestFactory
 
-from .factories import EventFactory
+from mixer.backend.django import mixer
 from ..views import EventDetailView, EventListView
 
 
@@ -16,7 +16,7 @@ class EventListViewTestCase(TestCase):
 class EventDetailViewTestCase(TestCase):
     """Tests for the ``EventDetailView`` view class."""
     def test_view(self):
-        event = EventFactory()
+        event = mixer.blend('multilingual_events.EventTranslation')
         req = RequestFactory().get('/')
         resp = EventDetailView.as_view()(req, pk=event.pk)
         self.assertEqual(resp.status_code, 200)

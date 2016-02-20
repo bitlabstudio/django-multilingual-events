@@ -6,8 +6,9 @@ from mock import Mock
 from django.test import TestCase
 from django.utils import timezone
 
+from mixer.backend.django import mixer
+
 from ..models import Event
-from .factories import EventFactory, EventPluginModelFactory
 
 
 class EventManagerTestCase(TestCase):
@@ -15,39 +16,43 @@ class EventManagerTestCase(TestCase):
     longMessage = True
 
     def setUp(self):
-        # the following two events should be visible
-        # a visible event
-        EventFactory()
-
-        # a past event with future end date
         past = timezone.now() - timezone.timedelta(1)
         future = timezone.now() + timezone.timedelta(1)
-        EventFactory(start_date=past, end_date=future)
+
+        # the following two events should be visible
+        # a visible event
+        event = mixer.blend('multilingual_events.EventTranslation',
+                            is_published=True, language_code='en',
+                            start_date=future).master
+        event.is_published = True
+        event.start_date = future
+        event.save()
+
+        # a past event with future end date
+        mixer.blend('multilingual_events.EventTranslation',
+                    language_code='en', start_date=past, end_date=future)
 
         # the following two events should be invisible
         # an invisible event
-        EventFactory(is_published=False)
+        mixer.blend('multilingual_events.EventTranslation', is_published=False)
 
         # a past event
-        past = timezone.now() - timezone.timedelta(1)
-        EventFactory(start_date=past)
+        event = mixer.blend('multilingual_events.EventTranslation',
+                            is_published=True, language_code='en',
+                            start_date=past).master
+        event.is_published = True
+        event.start_date = past
+        event.save()
 
     def test_get_visible_and_get_archived(self):
         manager = Event.objects
 
         request = Mock(LANGUAGE_CODE='en')
         result = manager.get_upcoming(request)
-        self.assertEqual(result.count(), 2)
+        self.assertEqual(result.count(), 1)
 
         result = manager.get_archived(request)
         self.assertEqual(result.count(), 1)
-
-        # another past event
-        past = timezone.now() - timezone.timedelta(1)
-        EventFactory(start_date=past)
-
-        result = manager.get_archived(request)
-        self.assertEqual(result.count(), 2)
 
 
 class EventTestCase(TestCase):
@@ -55,15 +60,14 @@ class EventTestCase(TestCase):
     longMessage = True
 
     def setUp(self):
-        self.event = EventFactory()
+        self.event = mixer.blend('multilingual_events.EventTranslation',
+                                 language_code='en').master
 
     def test_model(self):
         self.assertTrue(self.event.pk, msg=(
             'Should be able to instantiate and save the model.'))
 
     def test_get_address(self):
-        self.assertEqual(self.event.get_address(), '', msg=(
-            'Should return an empty address.'))
         self.event.venue_name = 'Foo'
         self.event.address_1 = 'Bar'
         self.event.address_2 = 'Foo'
@@ -78,8 +82,6 @@ class EventTestCase(TestCase):
             'Should return an empty list of alternative events.'))
 
     def test_get_city_and_country(self):
-        self.assertEqual(self.event.get_city_and_country(), '', msg=(
-            'Should return an empty string.'))
         self.event.city = 'Bar'
         self.assertEqual(self.event.get_city_and_country(), 'Bar, ', msg=(
             'Should return the city.'))
@@ -87,7 +89,8 @@ class EventTestCase(TestCase):
     def test_get_number_of_days(self):
         self.assertEqual(self.event.get_number_of_days(), 1, msg=(
             'Should return the duration of one day.'))
-        self.event.end_date = timezone.now() + timezone.timedelta(2)
+        self.event.start_date = timezone.now() - timezone.timedelta(1)
+        self.event.end_date = timezone.now() + timezone.timedelta(1)
         self.assertEqual(self.event.get_number_of_days(), 3, msg=(
             'Should return the duration of three days.'))
 
@@ -97,6 +100,6 @@ class EventPluginModelTestCase(TestCase):
     longMessage = True
 
     def test_model(self):
-        obj = EventPluginModelFactory()
+        obj = mixer.blend('multilingual_events.EventPluginModel')
         self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))

@@ -12,15 +12,13 @@ def read(fname):
 install_requires = [
     'django',
     'django-cms',
-    'south',
-    'django-countries==2.1.2',
-    'django-hvad>=0.4',
+    'django-countries',
+    'django-hvad>=1.5.0',
     'django-document-library',
 ]
 
 tests_require = [
     'fabric',
-    'factory_boy',
     'django-nose',
     'coverage',
     'django-coverage',
@@ -36,7 +34,7 @@ setup(
     platforms=['OS Independent'],
     keywords='django, event, i18n, hvad, multilingual, agenda, planning',
     author='Martin Brochhaus',
-    author_email='mbrochh@gmail.com',
+    author_email='martin.brochhaus@bitmazk.com',
     url="https://github.com/bitmazk/django-multilingnual-events",
     packages=find_packages(),
     include_package_data=True,

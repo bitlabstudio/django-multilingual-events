@@ -33,12 +33,11 @@ Add ``multilingnual_events`` to your ``INSTALLED_APPS``::
         'filer',
         'hvad',
         'multilingual_events',
-        'people',
         'cms',
         'mptt',
     )
 
-Run the South migrations::
+Run the migrations::
 
     ./manage.py migrate multilingual_events
 

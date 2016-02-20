@@ -23,9 +23,11 @@ class EventAgendaSessionForm(EventAgendaAdminWithDocumentMixin, ModelForm):
     """Admin form for the ``EventAgendaSession`` plugin."""
     class Meta:
         model = EventAgendaSession
+        fields = '__all__'
 
 
 class EventAgendaTalkForm(EventAgendaAdminWithDocumentMixin, ModelForm):
     """Admin form for the ``EventAgendaSession`` plugin."""
     class Meta:
         model = EventAgendaTalk
+        fields = '__all__'

@@ -64,7 +64,7 @@ class EventManager(TranslationManager):
         if not language:
             return self.model.objects.none()
 
-        qs = self.get_query_set()
+        qs = self.get_queryset()
         qs = qs.filter(
             translations__is_published=True,
             translations__language_code=language,
@@ -79,7 +79,7 @@ class EventManager(TranslationManager):
         if not language:
             return self.model.objects.none()
 
-        qs = self.get_query_set()
+        qs = self.get_queryset()
         qs = qs.filter(
             translations__is_published=True,
             translations__language_code=language,
