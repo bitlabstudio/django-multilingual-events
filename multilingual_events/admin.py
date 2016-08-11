@@ -10,6 +10,7 @@ from .models import Event, EventCategory
 class EventCategoryAdmin(TranslatableAdmin):
     """Admin class for the ``EventCategory`` model."""
     list_display = ['get_title', 'all_translations', ]
+    list_select_related = []
 
     def get_title(self, obj):
         return obj.title
@@ -20,6 +21,7 @@ class EventAdmin(TranslatableAdmin):
     """Admin class for the ``Event`` model."""
     list_display = ['get_title', 'start_date', 'user', 'all_translations',
                     'get_is_published']
+    list_select_related = []
 
     def get_title(self, obj):
         return obj.title
