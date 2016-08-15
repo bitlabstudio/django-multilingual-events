@@ -10,3 +10,4 @@ display_type_choices = [
 
 DISPLAY_TYPE_CHOICES = getattr(
     settings, 'EVENT_PLUGIN_DISPLAY_TYPE_CHOICES', display_type_choices)
+PAGINATION = getattr(settings, 'EVENT_PAGINATION', 20)

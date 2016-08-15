@@ -4,28 +4,44 @@
 {% block title %}{% trans "Events" %}{% endblock %}
 
 {% block main %}
-<div class="row">
-	<div class="col-md-6">
-		<h1>{% trans "Upcoming events" %}</h1>
-	</div>
-	<div class="col-md-6">
-		<h2>{% trans "Past events" %}</h2>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6">
-		{% for event in upcoming_events %}
-			{% include "multilingual_events/partials/event_item.html" with is_last=forloop.last %}
-		{% empty %}
-			<p>{% trans "No upcoming events found." %}</p>
-		{% endfor %}
-	</div>
-	<div class="col-md-6">
-		{% for event in archived_events %}
-			{% include "multilingual_events/partials/event_item.html" with is_last=forloop.last %}
-		{% empty %}
-			<p>{% trans "No past events found." %}</p>
-		{% endfor %}
-	</div>
-</div>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>{% trans "Upcoming events" %}</h1>
+    </div>
+    <div class="col-md-6">
+      <h2>{% trans "Past events" %}</h2>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6">
+    {% for event in upcoming_events %}
+      {% include "multilingual_events/partials/event_item.html" with is_last=forloop.last %}
+    {% empty %}
+      <p>{% trans "No upcoming events found." %}</p>
+    {% endfor %}
+  </div>
+  <div class="col-md-6">
+    {% for event in archived_events %}
+      {% include "multilingual_events/partials/event_item.html" with is_last=forloop.last %}
+    {% empty %}
+      <p>{% trans "No past events found." %}</p>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+    <ul class="pagination pagination-centered">
+      {% if page_obj.has_previous %}
+        <li><a href="?page=1"><<</a></li>
+        <li><a href="?page={{ page_obj.previous_page_number }}"><</a></li>
+      {% endif %}
+
+      {% for i in paginator.page_range %}
+        <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">></a></li>
+        <li><a href="?page={{ page_obj.paginator.num_pages }}">>></a></li>
+      {% endif %}
+    </ul>
+  {% endif %}
 {% endblock %}

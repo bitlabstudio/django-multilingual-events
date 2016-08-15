@@ -34,7 +34,6 @@ Add ``multilingnual_events`` to your ``INSTALLED_APPS``::
         'hvad',
         'multilingual_events',
         'cms',
-        'mptt',
     )
 
 Run the migrations::
@@ -50,6 +49,16 @@ Using the apphook
 
 Simply create a django-cms page and select ``Multilingual Events Apphook`` in
 the ``Application`` field of the ``Advanced Settings``.
+
+Settings
+--------
+
+EVENT_PAGINATION
+++++++++++++++++
+
+Default: 20
+
+Define a pagination amount for the event listing.
 
 
 Sitemaps

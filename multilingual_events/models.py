@@ -59,6 +59,18 @@ class EventCategory(TranslatableModel):
 
 class EventManager(TranslationManager):
     """Custom manager for the ``Event`` model."""
+    def get_published(self, request):
+        language = getattr(request, 'LANGUAGE_CODE', get_language())
+        if not language:
+            return self.model.objects.none()
+
+        qs = self.get_queryset()
+        qs = qs.filter(
+            translations__is_published=True,
+            translations__language_code=language,
+        )
+        return qs.distinct()
+
     def get_archived(self, request):
         language = getattr(request, 'LANGUAGE_CODE', get_language())
         if not language:
@@ -249,7 +261,7 @@ class Event(TranslatableModel):
     objects = EventManager()
 
     class Meta:
-        ordering = ('-start_date', )
+        ordering = ('-start_date', '-start_time')
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
 
