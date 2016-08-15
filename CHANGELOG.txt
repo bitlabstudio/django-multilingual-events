@@ -1,5 +1,7 @@
 === ongoing ===
 
+- Reversed event order
+
 === 1.3.3 ===
 
 - Fixed new migrations

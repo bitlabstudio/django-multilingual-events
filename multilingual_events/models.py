@@ -249,7 +249,7 @@ class Event(TranslatableModel):
     objects = EventManager()
 
     class Meta:
-        ordering = ('start_date', )
+        ordering = ('-start_date', )
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
 
