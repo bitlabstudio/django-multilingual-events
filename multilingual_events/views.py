@@ -24,7 +24,8 @@ class EventListView(ListView):
 
         upcoming = events.filter(
             Q(end_date__gte=timezone.now()) |
-            Q(start_date__gte=timezone.now()))
+            Q(start_date__gte=timezone.now())).order_by(
+            'start_date', 'start_time')
         archived = events.filter(
             Q(start_date__lt=timezone.now()) & (Q(end_date__isnull=True) | Q(
                 end_date__lt=timezone.now())))
