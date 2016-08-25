@@ -91,7 +91,7 @@ class EventManager(TranslationManager):
         if not language:
             return self.model.objects.none()
 
-        qs = self.get_queryset()
+        qs = self.get_queryset().order_by('start_date', 'start_time')
         qs = qs.filter(
             translations__is_published=True,
             translations__language_code=language,
