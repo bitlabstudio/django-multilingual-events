@@ -1,5 +1,7 @@
 === ongoing ===
 
+=== 1.3.6 ===
+
 - Order upcoming events by start date (ascending)
 
 === 1.3.5 ===
