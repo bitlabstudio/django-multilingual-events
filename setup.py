@@ -34,7 +34,7 @@ setup(
     keywords='django, event, i18n, hvad, multilingual, agenda, planning',
     author='Martin Brochhaus',
     author_email='martin.brochhaus@bitmazk.com',
-    url="https://github.com/bitmazk/django-multilingnual-events",
+    url="https://github.com/bitlabstudio/django-multilingual-events",
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,
