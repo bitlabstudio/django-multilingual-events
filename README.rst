@@ -22,7 +22,7 @@ If you want to install the latest stable release from PyPi::
 
 If you feel adventurous and want to install the latest commit from GitHub::
 
-    $ pip install -e git://github.com/bitmazk/django-multilingual-events.git#egg=multilingual_events
+    $ pip install -e git://github.com/bitlabstudio/django-multilingual-events.git#egg=multilingual_events
 
 Add ``multilingnual_events`` to your ``INSTALLED_APPS``::
 
