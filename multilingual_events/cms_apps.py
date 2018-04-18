@@ -7,7 +7,9 @@ from cms.apphook_pool import apphook_pool
 
 class SimpleEventsApphook(CMSApp):
     name = _("Multilingual Events Apphook")
-    urls = ["multilingual_events.urls"]
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ["multilingual_events.urls"]
 
 
 apphook_pool.register(SimpleEventsApphook)
