@@ -45,11 +45,12 @@ TEMPLATES = [{
             'django.core.context_processors.request',
             'django.core.context_processors.media',
             'django.core.context_processors.static',
+            'django.contrib.messages.context_processors.messages',
         )
     }
 }]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

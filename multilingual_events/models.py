@@ -1,9 +1,7 @@
 """Models for the ``multilingual_events`` app."""
-from __future__ import unicode_literals
-
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language, ugettext_lazy as _
 
@@ -14,7 +12,6 @@ from filer.fields.image import FilerImageField
 from hvad.models import TranslatedFields, TranslatableModel, TranslationManager
 
 from .settings import DISPLAY_TYPE_CHOICES
-
 
 lat_lng_help_text = _(
     'You can figure out latitude and longitude at'
@@ -49,16 +46,17 @@ class EventCategory(TranslatableModel):
     )
 
     class Meta:
-        ordering = ('slug', )
+        ordering = ('slug',)
         verbose_name = _('Event Category')
         verbose_name_plural = _('Event Categories')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.safe_translation_getter('title', self.slug)
 
 
 class EventManager(TranslationManager):
     """Custom manager for the ``Event`` model."""
+
     def get_published(self, request):
         language = getattr(request, 'LANGUAGE_CODE', get_language())
         if not language:
@@ -82,8 +80,8 @@ class EventManager(TranslationManager):
             translations__language_code=language,
         )
         qs = qs.filter(
-            Q(start_date__lt=timezone.now()) & (
-                Q(end_date__isnull=True) | Q(end_date__lt=timezone.now())))
+            Q(start_date__lt=timezone.now()) & (Q(
+                end_date__isnull=True) | Q(end_date__lt=timezone.now())))
         return qs.distinct()
 
     def get_upcoming(self, request):
@@ -97,8 +95,8 @@ class EventManager(TranslationManager):
             translations__language_code=language,
         )
         qs = qs.filter(
-            Q(end_date__gte=timezone.now()) |
-            Q(start_date__gte=timezone.now()))
+            Q(end_date__gte=timezone.now()) | Q(
+                start_date__gte=timezone.now()))
         return qs.distinct()
 
 
@@ -128,6 +126,7 @@ class Event(TranslatableModel):
     category = models.ForeignKey(
         EventCategory,
         verbose_name=_('Category'),
+        on_delete=models.CASCADE,
     )
 
     start_date = models.DateField(
@@ -196,6 +195,7 @@ class Event(TranslatableModel):
         'auth.User',
         verbose_name=_('User'),
         null=True, blank=True,
+        on_delete=models.SET_NULL,
     )
 
     country = CountryField(
@@ -206,6 +206,7 @@ class Event(TranslatableModel):
     image = FilerImageField(
         verbose_name=_('Image'),
         null=True, blank=True,
+        on_delete=models.SET_NULL,
     )
 
     translations = TranslatedFields(
@@ -265,7 +266,7 @@ class Event(TranslatableModel):
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.safe_translation_getter('title', 'Event on the {0}'.format(
             self.start_date))
 
@@ -285,7 +286,7 @@ class Event(TranslatableModel):
             if self.postal_code:
                 full_address += u'{0} '.format(self.postal_code)
             full_address += u'{0}<br />'.format(self.city)
-        full_address += u'{0}'.format(unicode(self.country.name))
+        full_address += u'{0}'.format(self.country.name)
         return full_address
 
     def get_alternative_events(self):
@@ -296,7 +297,7 @@ class Event(TranslatableModel):
         result = u''
         if self.city:
             result += u'{0}, '.format(self.city)
-        result += unicode(self.country.name)
+        result += self.country.name
         return result
 
     def get_number_of_days(self):
@@ -323,9 +324,10 @@ class EventPluginModel(CMSPlugin):
     event = models.ForeignKey(
         Event,
         verbose_name=_('Event'),
+        on_delete=models.CASCADE,
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} ({})'.format(self.event, self.event.category)
 
 
@@ -340,7 +342,7 @@ class EventAgendaDay(CMSPlugin):
         verbose_name=_('Title'),
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -369,6 +371,7 @@ class EventAgendaSession(CMSPlugin):
         'document_library.Document',
         verbose_name=_('Document'),
         null=True, blank=True,
+        on_delete=models.SET_NULL,
     )
 
 
@@ -389,4 +392,5 @@ class EventAgendaTalk(CMSPlugin):
         'document_library.Document',
         verbose_name=_('Document'),
         null=True, blank=True,
+        on_delete=models.SET_NULL,
     )

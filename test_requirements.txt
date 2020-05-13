@@ -1,0 +1,10 @@
+-r requirements.txt
+Fabric3
+mixer
+flake8
+mock
+django-nose
+coverage
+django-coverage
+ipython
+ipdb

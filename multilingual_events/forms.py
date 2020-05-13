@@ -15,7 +15,8 @@ class EventAgendaAdminWithDocumentMixin(object):
         super(EventAgendaAdminWithDocumentMixin, self).__init__(
             *args, **kwargs)
         self.fields['document'].widget = ForeignKeyRawIdWidget(
-            self._meta.model._meta.get_field('document').rel, admin.site,
+            self._meta.model._meta.get_field('document').remote_field,
+            admin.site,
         )
 
 

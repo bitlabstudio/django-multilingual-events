@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventAgendaDay',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('date', models.DateField(verbose_name='Date')),
                 ('title', models.CharField(max_length=256, verbose_name='Title')),
             ],
@@ -28,12 +28,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventAgendaSession',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('start_time', models.DateTimeField(verbose_name='Start time')),
                 ('end_time', models.DateTimeField(verbose_name='End time')),
                 ('title', models.CharField(max_length=256, verbose_name='Title')),
                 ('description', models.TextField(max_length=4000, verbose_name='Description', blank=True)),
-                ('document', models.ForeignKey(verbose_name='Document', blank=True, to='document_library.Document', null=True)),
+                ('document', models.ForeignKey(verbose_name='Document', blank=True, to='document_library.Document', null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'abstract': False,
@@ -43,10 +43,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventAgendaTalk',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=256, verbose_name='Title')),
                 ('description', models.TextField(max_length=4000, verbose_name='Description', blank=True)),
-                ('document', models.ForeignKey(verbose_name='Document', blank=True, to='document_library.Document', null=True)),
+                ('document', models.ForeignKey(verbose_name='Document', blank=True, to='document_library.Document', null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'abstract': False,
@@ -56,9 +56,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventPluginModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('display_type', models.CharField(max_length=256, verbose_name='Display type', choices=[(b'small', 'small'), (b'big', 'big')])),
-                ('event', models.ForeignKey(verbose_name='Event', to='multilingual_events.Event')),
+                ('event', models.ForeignKey(verbose_name='Event', to='multilingual_events.Event', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,

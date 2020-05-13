@@ -3,29 +3,16 @@
 # ===========================================================================
 # Packages essential to this app. Needed by anyone who wants to use this app.
 # ===========================================================================
-django==1.8.9
-django-hvad==1.5.0
-django-tagging==0.3.1
-django-missing==0.1.11
+Django<3
+django-hvad
+django-tagging
+django-missing
 
-django-cms==3.2.1
-django-filer==1.1.1
-cmsplugin-filer==1.0.1
-djangocms-text-ckeditor==2.8.1
-djangocms-link==1.7.1
+django-cms
+django-filer
+cmsplugin-filer
+djangocms-text-ckeditor
+djangocms-link
 
-django-document-library==1.5.2
-django-countries==2.1.2
-
-# ==============================================================
-# Packages needed for running the tests. Needed by contributors.
-# ==============================================================
-Fabric
-mixer
-flake8
-mock
-django-nose
-coverage
-django-coverage
-ipython
-ipdb
+django-document-library>=1.6.0
+django-countries

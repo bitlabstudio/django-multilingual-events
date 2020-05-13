@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=256, verbose_name='Title')),
                 ('language_code', models.CharField(max_length=15, db_index=True)),
-                ('master', models.ForeignKey(related_name='translations', editable=False, to='multilingual_events.EventCategory', null=True)),
+                ('master', models.ForeignKey(related_name='translations', editable=False, to='multilingual_events.EventCategory', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'managed': True,
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('is_published', models.BooleanField(default=False, verbose_name='Is published')),
                 ('meta_description', models.TextField(max_length=512, verbose_name='Meta description', blank=True)),
                 ('language_code', models.CharField(max_length=15, db_index=True)),
-                ('master', models.ForeignKey(related_name='translations', editable=False, to='multilingual_events.Event', null=True)),
+                ('master', models.ForeignKey(related_name='translations', editable=False, to='multilingual_events.Event', null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'managed': True,
@@ -99,7 +99,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='category',
-            field=models.ForeignKey(verbose_name='Category', to='multilingual_events.EventCategory'),
+            field=models.ForeignKey(verbose_name='Category', to='multilingual_events.EventCategory', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='event',
@@ -114,12 +114,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='image',
-            field=filer.fields.image.FilerImageField(verbose_name='Image', blank=True, to='filer.Image', null=True),
+            field=filer.fields.image.FilerImageField(verbose_name='Image', blank=True, to='filer.Image', null=True, on_delete=models.SET_NULL),
         ),
         migrations.AddField(
             model_name='event',
             name='user',
-            field=models.ForeignKey(verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True),
+            field=models.ForeignKey(verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL),
         ),
         migrations.AlterUniqueTogether(
             name='eventtranslation',

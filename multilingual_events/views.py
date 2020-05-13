@@ -23,8 +23,8 @@ class EventListView(ListView):
             pk__in=list(queryset.values_list('pk', flat=True)))
 
         upcoming = events.filter(
-            Q(end_date__gte=timezone.now()) |
-            Q(start_date__gte=timezone.now())).order_by(
+            Q(end_date__gte=timezone.now()) | Q(
+                start_date__gte=timezone.now())).order_by(
             'start_date', 'start_time')
         archived = events.filter(
             Q(start_date__lt=timezone.now()) & (Q(end_date__isnull=True) | Q(

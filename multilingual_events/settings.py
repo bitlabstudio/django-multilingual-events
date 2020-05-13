@@ -1,7 +1,7 @@
+# flake8: noqa
 """Settings for the ``multilingual_events`` app."""
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-
 
 display_type_choices = [
     ('small', _('small')),

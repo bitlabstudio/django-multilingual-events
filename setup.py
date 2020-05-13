@@ -9,6 +9,7 @@ def read(fname):
     except IOError:
         return ''
 
+
 install_requires = [
     'django',
     'django-cms',
