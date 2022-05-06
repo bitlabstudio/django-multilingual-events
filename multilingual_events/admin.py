@@ -2,14 +2,14 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from hvad.admin import TranslatableAdmin
+from parler.admin import TranslatableAdmin
 
 from .models import Event, EventCategory
 
 
 class EventCategoryAdmin(TranslatableAdmin):
     """Admin class for the ``EventCategory`` model."""
-    list_display = ['get_title', 'all_translations', ]
+    list_display = ['get_title', 'all_languages_column', ]
     list_select_related = []
 
     def get_title(self, obj):
@@ -19,7 +19,7 @@ class EventCategoryAdmin(TranslatableAdmin):
 
 class EventAdmin(TranslatableAdmin):
     """Admin class for the ``Event`` model."""
-    list_display = ['get_title', 'start_date', 'user', 'all_translations',
+    list_display = ['get_title', 'start_date', 'user', 'all_languages_column',
                     'get_is_published']
     list_select_related = []
 

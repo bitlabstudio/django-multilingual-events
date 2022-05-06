@@ -2,8 +2,6 @@
 Fabric3
 mixer
 flake8
-mock
-django-nose
 coverage
 django-coverage
 ipython

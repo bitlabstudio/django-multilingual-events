@@ -9,7 +9,8 @@ from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
 from django_countries.fields import CountryField
 from filer.fields.image import FilerImageField
-from hvad.models import TranslatedFields, TranslatableModel, TranslationManager
+from parler.managers import TranslationManager
+from parler.models import TranslatedFields, TranslatableModel
 
 from .settings import DISPLAY_TYPE_CHOICES
 

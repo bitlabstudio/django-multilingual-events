@@ -73,7 +73,6 @@ EXTERNAL_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
-    'django_nose',
     'cms',
     'sekizai',
     'menus',
@@ -81,7 +80,7 @@ EXTERNAL_APPS = [
     'easy_thumbnails',
     'mptt',
     'document_library',
-    'hvad',
+    'parler',
     'treebeard',
 ]
 

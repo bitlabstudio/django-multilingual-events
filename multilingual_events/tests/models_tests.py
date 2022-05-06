@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Tests for the models of the ``multilingual_events`` app."""
 from __future__ import unicode_literals
+from unittest.mock import Mock
 
-from mock import Mock
 from django.test import TestCase
 from django.utils import timezone
 

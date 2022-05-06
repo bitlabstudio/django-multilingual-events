@@ -14,7 +14,7 @@ install_requires = [
     'django',
     'django-cms',
     'django-countries',
-    'django-hvad>=1.5.0',
+    'django-parler>=2.3',
     'django-document-library',
 ]
 
@@ -22,7 +22,6 @@ tests_require = [
     'fabric',
     'coverage',
     'django-coverage',
-    'mock',
 ]
 
 setup(
@@ -32,7 +31,7 @@ setup(
     long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
-    keywords='django, event, i18n, hvad, multilingual, agenda, planning',
+    keywords='django, event, i18n, multilingual, agenda, planning',
     author='Martin Brochhaus',
     author_email='martin.brochhaus@bitlabstudio.com',
     url="https://github.com/bitlabstudio/django-multilingual-events",
